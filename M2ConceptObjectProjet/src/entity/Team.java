@@ -23,6 +23,7 @@ public class Team {
 		this.maitre = maitre;
 		this.peons=peons;
 		this.alliance=alliance;
+		this.all=new ArrayList<LivingBeings>();
 	}
 
 	public Master getMaitre() {

@@ -24,6 +24,13 @@ public class Simulation {
 	int dayMax;
 	
 	
+	
+	
+	public Simulation(Map map) {
+		super();
+		this.map = map;
+	}
+
 	public void init() {
 		
 		Scanner input = new Scanner(System.in);
@@ -35,6 +42,7 @@ public class Simulation {
 		
 		this.setTeams(this.initTeam());
 		this.map.init();
+		System.out.println("test");
 		
 		
 	}
@@ -61,7 +69,7 @@ public void setTeam(ArrayList<Team> teams) {
 	
 	
 }
-	
+	//initialisation des equipe avec un master et 3 peon pour chaque equipe
 public ArrayList<Team> initTeam() {
 		
 		ArrayList<Team> teams=new ArrayList<Team> ();
