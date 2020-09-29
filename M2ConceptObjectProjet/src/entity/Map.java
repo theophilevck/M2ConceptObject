@@ -7,12 +7,12 @@ public class Map {
 	
 	int Y=20;
 	
-	Case[][] carte;
+	Case[][] map;
 	
 	public Map(int X, int Y ) {
 		this.X=X;
 		this.Y=Y;
-		this.carte=new Case [X][Y];
+		this.map=new Case [X][Y];
 		
 	}
 	
@@ -21,53 +21,53 @@ public class Map {
 		
 		for(int i=0;i<X;i++) {
 			for(int j=0;j<Y;j++) {
-				carte[i][j]=new Case();
+				map[i][j]=new Case();
 			}
 		}
 		
 		this.createSZ();
 		for(int i=0;i<X;i++) {
 			for(int j=0;j<Y;j++) {
-				if(carte[i][j].isSafeZone()==false) {
-					this.createObstacle(carte[i][j]);
+				if(map[i][j].isSafeZone()==false) {
+					this.createObstacle(map[i][j]);
 				}
 			}
 		}
 	}
 	
 	
-	//creation de 4 safezone, de taille 3*3 et elle on chaqun un nombre pour definir le propretaire
+	//creation de 4 safezones, de taille 3*3 et elles ont chacun un nombre pour definir le proprietaire
 	void createSZ() {
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
-				this.carte[i][j].setSafeZone(true);
-				this.carte[i][j].setSafeZoneOwner(0);;
+				this.map[i][j].setSafeZone(true);
+				this.map[i][j].setSafeZoneOwner(0);;
 			}
 		}
 		
 		for(int i=this.getX()-3;i<this.getX();i++) {
 			for(int j=0;j<3;j++) {
-				this.carte[i][j].setSafeZone(true);
-				this.carte[i][j].setSafeZoneOwner(1);;
+				this.map[i][j].setSafeZone(true);
+				this.map[i][j].setSafeZoneOwner(1);;
 			}
 		}
 		
 		for(int i=0;i<4;i++) {
 			for(int j=this.getY()-3;j<this.getY();j++) {
-				this.carte[i][j].setSafeZone(true);
-				this.carte[i][j].setSafeZoneOwner(2);;
+				this.map[i][j].setSafeZone(true);
+				this.map[i][j].setSafeZoneOwner(2);;
 			}
 		}
 		
 		for(int i=this.getX()-3;i<this.getX();i++) {
 			for(int j=this.getY()-3;j<this.getY();j++) {
-				this.carte[i][j].setSafeZone(true);
-				this.carte[i][j].setSafeZoneOwner(3);;
+				this.map[i][j].setSafeZone(true);
+				this.map[i][j].setSafeZoneOwner(3);;
 			}
 		}
 	}
 	
-	//creation des obstacle sur les case qui ne sont pas des safezone
+	//creation des obstacles sur les cases qui ne sont pas des safezones
 	void createObstacle( Case cas) {
 		
 		double bool=Math.random();

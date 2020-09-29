@@ -7,8 +7,8 @@ import entity.LivingBeing.Peon;
 
 public class Mandalorian extends Team {
 
-	public Mandalorian(Master maitre, ArrayList<Peon> peons,Alliance alliance) {
-		super(maitre, peons,alliance);
+	public Mandalorian(Master master, ArrayList<Peon> peons,Alliance alliance) {
+		super(master, peons,alliance);
 		// TODO Auto-generated constructor stub
 	}
 

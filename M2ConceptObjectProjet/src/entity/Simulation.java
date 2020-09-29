@@ -55,7 +55,7 @@ public void setTeam(ArrayList<Team> teams) {
 	safeZoneNumber.add(2);
 	safeZoneNumber.add(3);
 	
-	//do random to radomize team on map
+	//do random to randomize team on map
 	int count=0;
 	for(Team e:teams) {
 		int randomIndex = (int) (Math.random() * safeZoneNumber.size());
@@ -69,7 +69,7 @@ public void setTeam(ArrayList<Team> teams) {
 	
 	
 }
-	//initialisation des equipe avec un master et 3 peon pour chaque equipe
+	//initialisation des equipes avec un master et 3 peons pour chaque equipe
 public ArrayList<Team> initTeam() {
 		
 		ArrayList<Team> teams=new ArrayList<Team> ();
@@ -78,7 +78,7 @@ public ArrayList<Team> initTeam() {
 		while (pion0.size()!=3) {
 			pion0.add(new Apprentice());
 		}
-		Jedi jedi =new Jedi(new MasterJedi(), pion0,Alliance.Rebelion);
+		Jedi jedi =new Jedi(new MasterJedi(), pion0,Alliance.Rebellion);
 		jedi.getAll().addAll(pion0);
 		jedi.getAll().add(jedi.getMaitre());
 		teams.add(jedi);
@@ -88,7 +88,7 @@ public ArrayList<Team> initTeam() {
 		while (pion1.size()!=3) {
 			pion1.add(new Ewak());
 		}
-		Wookie wookie =new Wookie(new Chewbacca(), pion1,Alliance.Rebelion);
+		Wookie wookie =new Wookie(new Chewbacca(), pion1,Alliance.Rebellion);
 		wookie.getAll().addAll(pion1);
 		wookie.getAll().add(wookie.getMaitre());
 		teams.add(wookie);

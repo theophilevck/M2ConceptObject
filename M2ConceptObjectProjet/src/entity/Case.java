@@ -7,7 +7,7 @@ public class Case {
 	
 	private int safeZoneOwner;
 
-	private boolean ocupied;
+	private boolean occupied;
 
 	private boolean obstacle;
 	
@@ -47,12 +47,12 @@ public class Case {
 		this.corner = corner;
 	}
 	
-	public boolean isOcupied() {
-		return ocupied;
+	public boolean isOccupied() {
+		return occupied;
 	}
 
-	public void setOcupied(boolean ocupied) {
-		this.ocupied = ocupied;
+	public void setOcupied(boolean occupied) {
+		this.occupied = occupied;
 	}
 
 	public int getSafeZoneOwner() {
