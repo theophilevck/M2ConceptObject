@@ -5,6 +5,14 @@ import entity.LivingBeing.LivingBeings;
 public class Case {
 	
 	
+	public Case(int x, int y,boolean border) {
+		super();
+		this.X = x;
+		this.Y = y;
+		this.border=border;
+		
+	}
+
 	private boolean safeZone;
 	
 	private int safeZoneOwner;
@@ -18,6 +26,10 @@ public class Case {
 	private boolean corner;
 	
 	private LivingBeings occupant;
+	
+	private int X;
+	
+	private int Y;
 
 	public boolean isSafeZone() {
 		return safeZone;
@@ -79,5 +91,21 @@ public class Case {
 		this.occupied = occupied;
 	}
 
+	public int getX() {
+		return X;
+	}
+
+	public void setX(int x) {
+		X = x;
+	}
+
+	public int getY() {
+		return Y;
+	}
+
+	public void setY(int y) {
+		Y = y;
+	}
+ 
 
 }

@@ -57,7 +57,7 @@ public void setTeam(ArrayList<Team> teams) {
 	safeZoneNumber.add(2);
 	safeZoneNumber.add(3);
 	
-	//do random to randomize team on map
+	// random to randomize team on map
 	int count=0;
 	for(Team e:teams) {
 		int randomIndex = (int) (Math.random() * safeZoneNumber.size());
@@ -106,7 +106,7 @@ public ArrayList<Team> initTeam() {
 		
 		ArrayList<Peon> pion0=new ArrayList<Peon>();
 		while (pion0.size()!=3) {
-			pion0.add(new Apprentice());
+			pion0.add(new Apprentice(this.getMap()));
 		}
 		Jedi jedi =new Jedi(new MasterJedi(), pion0,Alliance.Rebellion);
 		jedi.getAll().addAll(pion0);
@@ -116,7 +116,7 @@ public ArrayList<Team> initTeam() {
 		
 		ArrayList<Peon> pion1=new ArrayList<Peon>();
 		while (pion1.size()!=3) {
-			pion1.add(new Ewak());
+			pion1.add(new Ewak(this.getMap()));
 		}
 		Wookie wookie =new Wookie(new Chewbacca(), pion1,Alliance.Rebellion);
 		wookie.getAll().addAll(pion1);
@@ -125,7 +125,7 @@ public ArrayList<Team> initTeam() {
 		
 		ArrayList<Peon> pion2=new ArrayList<Peon>();
 		while (pion2.size()!=3) {
-			pion2.add(new StormTrooper());
+			pion2.add(new StormTrooper(this.getMap()));
 		}
 		Empire empire =new Empire(new Sergent(), pion2,Alliance.Empire);
 		empire.getAll().addAll(pion2);
@@ -134,7 +134,7 @@ public ArrayList<Team> initTeam() {
 		
 		ArrayList<Peon> pion3=new ArrayList<Peon>();
 		while (pion3.size()!=3) {
-			pion3.add(new BountyHunter());
+			pion3.add(new BountyHunter(this.getMap()));
 		}
 		Mandalorian mandalorian =new Mandalorian(new JangoFett(), pion3,Alliance.Empire);
 		mandalorian.getAll().addAll(pion3);

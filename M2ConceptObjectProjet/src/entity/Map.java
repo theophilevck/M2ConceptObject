@@ -21,7 +21,13 @@ public class Map {
 		
 		for(int i=0;i<X;i++) {
 			for(int j=0;j<Y;j++) {
-				map[i][j]=new Case();
+				if((i==0)||(i==X-1)||(j==0)||(j==Y-1)) {
+					map[i][j]=new Case(i,j,true);
+				}
+				else {
+					map[i][j]=new Case(i,j,false);
+				}
+				
 			}
 		}
 		
