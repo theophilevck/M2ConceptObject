@@ -17,11 +17,11 @@ public class Simulation {
 	
 	private Map map;
 	
-	ArrayList<Team> teams;
+	private ArrayList<Team> teams;
 	
-	int day;
+	private int day;
 	
-	int dayMax;
+	private int dayMax;
 	
 	
 	
@@ -42,6 +42,8 @@ public class Simulation {
 		
 		this.setTeams(this.initTeam());
 		this.map.init();
+		this.setTeam(this.getTeams());
+		this.setMaster();
 		System.out.println("test");
 		
 		
@@ -63,12 +65,40 @@ public void setTeam(ArrayList<Team> teams) {
 		teams.get(randomIndex).getAll().forEach(l -> l.setSafeZoneNumber(safeZoneNumber.get(randomIndex)));
 		safeZoneNumber.remove(randomIndex);
 	}
-	
-	
-	
-	
-	
 }
+
+public void setMaster() {
+	for(Team e:this.getTeams()) {
+		switch(e.getMaitre().getSafeZoneNumber()) {
+		  case 0:
+		    e.getMaitre().setX(0);
+		    e.getMaitre().setY(0);
+		    this.getMap().getMap()[0][0].setOccupant(e.getMaitre());
+		    this.getMap().getMap()[0][0].setOccupied(true);
+		    break;
+		  case 1:
+			  e.getMaitre().setX(19);
+			  e.getMaitre().setY(0);
+			  this.getMap().getMap()[19][0].setOccupant(e.getMaitre());
+			  this.getMap().getMap()[19][0].setOccupied(true);
+		    break;
+		  case 2:
+			  e.getMaitre().setX(0);
+			   e.getMaitre().setY(19);
+			   this.getMap().getMap()[0][19].setOccupant(e.getMaitre());
+			   this.getMap().getMap()[0][19].setOccupied(true);
+			    break;
+		  case 3:
+			  e.getMaitre().setX(19);
+			  e.getMaitre().setY(19);
+			  this.getMap().getMap()[19][19].setOccupant(e.getMaitre());
+			  this.getMap().getMap()[19][19].setOccupied(true);
+			    break;
+		}
+	}
+}
+
+
 	//initialisation des equipes avec un master et 3 peons pour chaque equipe
 public ArrayList<Team> initTeam() {
 		

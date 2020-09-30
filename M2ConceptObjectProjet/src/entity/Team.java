@@ -26,6 +26,14 @@ public class Team {
 		this.all=new ArrayList<LivingBeings>();
 	}
 
+	public Alliance getAlliance() {
+		return alliance;
+	}
+
+	public void setAlliance(Alliance alliance) {
+		this.alliance = alliance;
+	}
+
 	public Master getMaitre() {
 		return maitre;
 	}
@@ -34,20 +42,20 @@ public class Team {
 		this.maitre = maitre;
 	}
 
-	public ArrayList<Peon > getPeons() {
+	public ArrayList<Peon> getPeons() {
 		return peons;
 	}
 
-	public void setPeons(ArrayList<Peon > peons) {
+	public void setPeons(ArrayList<Peon> peons) {
 		this.peons = peons;
 	}
-	
-	public Alliance getAlliance() {
-		return alliance;
+
+	public ArrayList<LivingBeings> getAll() {
+		return all;
 	}
 
-	public void setAlliance(Alliance alliance) {
-		this.alliance = alliance;
+	public void setAll(ArrayList<LivingBeings> all) {
+		this.all = all;
 	}
 
 	public int getSafeZoneNumber() {
@@ -58,13 +66,7 @@ public class Team {
 		this.safeZoneNumber = safeZoneNumber;
 	}
 
-	public ArrayList<LivingBeings> getAll() {
-		return all;
-	}
 
-	public void setAll(ArrayList<LivingBeings> all) {
-		this.all = all;
-	}
 
 	
 	

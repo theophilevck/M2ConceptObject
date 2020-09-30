@@ -1,5 +1,7 @@
 package entity;
 
+import entity.LivingBeing.LivingBeings;
+
 public class Case {
 	
 	
@@ -14,6 +16,8 @@ public class Case {
 	private boolean border;
 	
 	private boolean corner;
+	
+	private LivingBeings occupant;
 
 	public boolean isSafeZone() {
 		return safeZone;
@@ -61,6 +65,18 @@ public class Case {
 
 	public void setSafeZoneOwner(int safeZoneOwner) {
 		this.safeZoneOwner = safeZoneOwner;
+	}
+
+	public LivingBeings getOccupant() {
+		return occupant;
+	}
+
+	public void setOccupant(LivingBeings occupant) {
+		this.occupant = occupant;
+	}
+
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
 	}
 
 

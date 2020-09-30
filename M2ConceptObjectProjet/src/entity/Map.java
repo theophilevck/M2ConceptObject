@@ -90,6 +90,14 @@ public class Map {
 		Y = y;
 	}
 
+	public Case[][] getMap() {
+		return map;
+	}
+
+	public void setMap(Case[][] map) {
+		this.map = map;
+	}
+
 	
 
 }
