@@ -28,19 +28,22 @@ public abstract class Peon extends LivingBeings{
 	@Override
 	public
 	void move() {
-		// TODO Auto-generated method stub
 		ArrayList <Case> movePosible=this.checkObstacle(this.map);
 		if(movePosible.size()!=0) {
 			int randomIndex = (int) (Math.random() * movePosible.size());
-			this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
-			this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);
-			this.setX(movePosible.get(randomIndex).getX());
-			this.setY(movePosible.get(randomIndex).getY());
-			this.getMap().getMap()[this.getX()][this.getY()].setOccupied(true);
-			this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
+			if(movePosible.get(randomIndex).isOccupied()==true){
+				//do fight or exchange message
+				
+			}
+			else {
+				this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
+				this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);
+				this.setX(movePosible.get(randomIndex).getX());
+				this.setY(movePosible.get(randomIndex).getY());
+				this.getMap().getMap()[this.getX()][this.getY()].setOccupied(true);
+				this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
+			}
 		}
-		
-		System.out.println("test");
 	}
 	
 	public ArrayList<Case> checkObstacle(Map map) {
@@ -60,15 +63,6 @@ public abstract class Peon extends LivingBeings{
 						else {
 							movePosible.add(map.getMap()[i][j]);
 						}
-						/*
-						//if((map.getMap()[i][j].isOccupied()==false)&&(map.getMap()[i][j].isObstacle()==false)) {
-						if(map.getMap()[i][j].isObstacle()==false) {
-							if((map.getMap()[i][j].isSafeZone()==true)&&(map.getMap()[i][j].getSafeZoneOwner()!=this.getSafeZoneNumber())) {
-							}
-							else {
-								movePosible.add(map.getMap()[i][j]);
-							}
-						}*/
 				}
 			}
 		}
@@ -92,7 +86,6 @@ public abstract class Peon extends LivingBeings{
 			for(int b=j;b<jMax;b++) {
 				if(	(map.getMap()[a][b].isObstacle()==true)	||	(	(map.getMap()[a][b].isSafeZone()==true)	&&	(map.getMap()[a][b].getSafeZoneOwner()!=this.getSafeZoneNumber()	)	)	){
 					//do nothing
-					System.out.println("bug");
 				}
 				else {
 					if(	(	a==cas.getX()	)	&&	(	b==cas.getY()	)	) {
@@ -109,14 +102,11 @@ public abstract class Peon extends LivingBeings{
 		
 	}
 		
-		
-	
-	void checkWay() {
-		
-	}
+
 	void backMaster() {
 		
 	}
+	
 
 	public int getPE() {
 		return PE;
