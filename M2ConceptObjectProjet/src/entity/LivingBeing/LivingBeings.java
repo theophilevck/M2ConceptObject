@@ -1,12 +1,16 @@
 package entity.LivingBeing;
 
+import entity.Alliance;
+
 public abstract class LivingBeings {
 	
-	int X;
+	protected Alliance alliance;
 	
-	int Y;
+	protected int X;
 	
-	int safeZoneNumber;
+	protected int Y;
+	
+	protected int safeZoneNumber;
 	
 	public int getX() {
 		return X;
@@ -30,6 +34,14 @@ public abstract class LivingBeings {
 
 	public void setSafeZoneNumber(int safeZoneNumber) {
 		this.safeZoneNumber = safeZoneNumber;
+	}
+
+	public Alliance getAlliance() {
+		return alliance;
+	}
+
+	public void setAlliance(Alliance alliance) {
+		this.alliance = alliance;
 	}
 
 	abstract void move();

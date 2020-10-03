@@ -17,9 +17,6 @@ public abstract class Peon extends LivingBeings{
 	
 	protected Map map;
 	
-	
-	
-
 	public Peon(Map map) {
 		super();
 		this.map = map;
@@ -32,8 +29,22 @@ public abstract class Peon extends LivingBeings{
 		if(movePosible.size()!=0) {
 			int randomIndex = (int) (Math.random() * movePosible.size());
 			if(movePosible.get(randomIndex).isOccupied()==true){
-				//do fight or exchange message
-				
+				if(movePosible.get(randomIndex).getOccupant().getAlliance()==this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getAlliance()) {
+					if(movePosible.get(randomIndex).getOccupant().getSafeZoneNumber()==this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getSafeZoneNumber()) {
+						if(movePosible.get(randomIndex).getOccupant() instanceof Master) {
+							//give all message to master
+						}
+						else {
+							//fusion message of both Peon
+						}
+					}
+					else {
+						//enconter alliance each peon get random message of the other
+					}
+				}
+				else {
+					//fight for message
+				}
 			}
 			else {
 				this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
@@ -58,7 +69,6 @@ public abstract class Peon extends LivingBeings{
 					for(int j=this.getY()-1;j<this.getY()+2;j++) {
 						if(	(map.getMap()[i][j].isObstacle()==true)	||	(	(map.getMap()[i][j].isSafeZone()==true)	&&	(map.getMap()[i][j].getSafeZoneOwner()!=this.getSafeZoneNumber()	)	)	){
 							//do nothing
-							
 						}
 						else {
 							movePosible.add(map.getMap()[i][j]);
@@ -99,7 +109,6 @@ public abstract class Peon extends LivingBeings{
 			}
 		}
 		return movePosible;
-		
 	}
 		
 
