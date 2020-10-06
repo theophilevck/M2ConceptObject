@@ -44,6 +44,7 @@ public class Simulation {
 		this.map.init();
 		this.setTeam(this.getTeams());
 		this.setMaster();
+		this.setPeon();
 		System.out.println("test");
 		
 		
@@ -62,7 +63,8 @@ public void setTeam(ArrayList<Team> teams) {
 	for(Team e:teams) {
 		int randomIndex = (int) (Math.random() * safeZoneNumber.size());
 		//teams.get(randomIndex).setSafeZoneNumber(safeZoneNumber.get(randomIndex));
-		teams.get(randomIndex).getAll().forEach(l -> l.setSafeZoneNumber(safeZoneNumber.get(randomIndex)));
+		System.out.println("t");
+		e.getAll().forEach(l -> l.setSafeZoneNumber(safeZoneNumber.get(randomIndex)));
 		safeZoneNumber.remove(randomIndex);
 	}
 }
@@ -77,22 +79,22 @@ public void setMaster() {
 		    this.getMap().getMap()[0][0].setOccupied(true);
 		    break;
 		  case 1:
-			  e.getMaitre().setX(19);
+			  e.getMaitre().setX(map.X-1);
 			  e.getMaitre().setY(0);
-			  this.getMap().getMap()[19][0].setOccupant(e.getMaitre());
-			  this.getMap().getMap()[19][0].setOccupied(true);
+			  this.getMap().getMap()[map.X-1][0].setOccupant(e.getMaitre());
+			  this.getMap().getMap()[map.X-1][0].setOccupied(true);
 		    break;
 		  case 2:
 			  e.getMaitre().setX(0);
-			   e.getMaitre().setY(19);
-			   this.getMap().getMap()[0][19].setOccupant(e.getMaitre());
-			   this.getMap().getMap()[0][19].setOccupied(true);
+			   e.getMaitre().setY(map.Y-1);
+			   this.getMap().getMap()[0][map.Y-1].setOccupant(e.getMaitre());
+			   this.getMap().getMap()[0][map.Y-1].setOccupied(true);
 			    break;
 		  case 3:
-			  e.getMaitre().setX(19);
-			  e.getMaitre().setY(19);
-			  this.getMap().getMap()[19][19].setOccupant(e.getMaitre());
-			  this.getMap().getMap()[19][19].setOccupied(true);
+			  e.getMaitre().setX(map.X-1);
+			  e.getMaitre().setY(map.Y-1);
+			  this.getMap().getMap()[map.X-1][map.Y-1].setOccupant(e.getMaitre());
+			  this.getMap().getMap()[map.X-1][map.Y-1].setOccupied(true);
 			    break;
 		}
 	}
@@ -144,6 +146,88 @@ public ArrayList<Team> initTeam() {
 		return teams;
 }
 
+public void setPeon() {
+	
+	for(Team e:this.getTeams()) {
+			switch(e.getPeons().get(0).getSafeZoneNumber()) {
+			case(0):
+				this.getMap().getMap()[1][0].setOccupant(e.getPeons().get(0));
+	  			this.getMap().getMap()[1][0].setOccupied(true);
+	  			e.getPeons().get(0).setX(1);
+				e.getPeons().get(0).setY(0);
+	  	
+	  			this.getMap().getMap()[1][1].setOccupant(e.getPeons().get(1));
+	  			this.getMap().getMap()[1][1].setOccupied(true);
+	  			e.getPeons().get(1).setX(1);
+				e.getPeons().get(1).setY(1);
+	  	
+	  			this.getMap().getMap()[0][1].setOccupant(e.getPeons().get(2));
+	  			this.getMap().getMap()[0][1].setOccupied(true);
+	  			e.getPeons().get(2).setX(0);
+				e.getPeons().get(2).setY(1);
+				
+				
+			break;
+			
+			case(1):
+				this.getMap().getMap()[map.X-2][0].setOccupant(e.getPeons().get(0));
+	  		this.getMap().getMap()[map.X-2][0].setOccupied(true);
+	  		e.getPeons().get(0).setX(map.X-2);
+			e.getPeons().get(0).setY(0);
+	  	
+	  		this.getMap().getMap()[map.X-2][1].setOccupant(e.getPeons().get(1));
+	  		this.getMap().getMap()[map.X-2][1].setOccupied(true);
+	  		e.getPeons().get(1).setX(map.X-2);
+			e.getPeons().get(1).setY(1);
+	  	
+	  		this.getMap().getMap()[map.X-1][1].setOccupant(e.getPeons().get(2));
+	  		this.getMap().getMap()[map.X-1][1].setOccupied(true);
+	  		e.getPeons().get(2).setX(map.X-1);
+			e.getPeons().get(2).setY(1);
+				
+			break;
+				
+			case(2):
+				
+				
+				this.getMap().getMap()[0][map.Y-2].setOccupant(e.getPeons().get(0));
+		  		this.getMap().getMap()[0][map.Y-2].setOccupied(true);
+		  		e.getPeons().get(0).setX(0);
+				e.getPeons().get(0).setY(map.Y-2);
+		  	
+		  		this.getMap().getMap()[1][map.Y-2].setOccupant(e.getPeons().get(1));
+		  		this.getMap().getMap()[1][map.Y-2].setOccupied(true);
+		  		e.getPeons().get(1).setX(1);
+				e.getPeons().get(1).setY(map.Y-2);
+		  	
+		  		this.getMap().getMap()[1][map.Y-1].setOccupant(e.getPeons().get(2));
+		  		this.getMap().getMap()[1][map.Y-1].setOccupied(true);
+		  		e.getPeons().get(2).setX(1);
+				e.getPeons().get(2).setY(map.Y-1);
+			break;
+				
+			case(3):
+				this.getMap().getMap()[map.X-2][map.Y-2].setOccupant(e.getPeons().get(0));
+		  		this.getMap().getMap()[map.X-2][map.Y-2].setOccupied(true);
+		  		e.getPeons().get(0).setX(map.X-2);
+				e.getPeons().get(0).setY(map.Y-2);
+		  	
+		  		this.getMap().getMap()[map.X-2][map.Y-1].setOccupant(e.getPeons().get(1));
+		  		this.getMap().getMap()[map.X-2][map.Y-1].setOccupied(true);
+		  		e.getPeons().get(1).setX(map.X-2);
+				e.getPeons().get(1).setY(map.Y-1);
+		  	
+		  		this.getMap().getMap()[map.X-1][map.Y-2].setOccupant(e.getPeons().get(2));
+		  		this.getMap().getMap()[map.X-1][map.Y-2].setOccupied(true);
+		  		e.getPeons().get(2).setX(map.X-1);
+				e.getPeons().get(2).setY(map.Y-2);
+			break;
+			
+			}
+		}
+	}
+	
+	
 	
 	public Map getMap() {
 		return map;
