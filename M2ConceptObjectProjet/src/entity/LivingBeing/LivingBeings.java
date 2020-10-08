@@ -12,6 +12,8 @@ public abstract class LivingBeings {
 	
 	protected int safeZoneNumber;
 	
+	protected String image;
+	
 	public int getX() {
 		return X;
 	}
@@ -42,6 +44,15 @@ public abstract class LivingBeings {
 
 	public void setAlliance(Alliance alliance) {
 		this.alliance = alliance;
+	}
+
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	abstract void move();
