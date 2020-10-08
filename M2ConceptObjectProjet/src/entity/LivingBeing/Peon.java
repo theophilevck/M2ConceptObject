@@ -1,10 +1,13 @@
 package entity.LivingBeing;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 import entity.Case;
 import entity.Map;
+import entity.Message;
 
 public abstract class Peon extends LivingBeings{
 	
@@ -17,6 +20,8 @@ public abstract class Peon extends LivingBeings{
 	protected int MasterY;
 	
 	protected Map map;
+	
+	protected ArrayList<Message> ownPeonMessage;
 	
 	public Peon(Map map) {
 		super();
@@ -33,7 +38,8 @@ public abstract class Peon extends LivingBeings{
 				if(movePossible.get(randomIndex).getOccupant().getAlliance()==this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getAlliance()) {
 					if(movePossible.get(randomIndex).getOccupant().getSafeZoneNumber()==this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getSafeZoneNumber()) {
 						if(movePossible.get(randomIndex).getOccupant() instanceof Master) {
-							//give all message to master
+							//Trouver comment amener le peon et master dans le move
+							//giveAllMessage(master, peon);
 						}
 						else {
 							//fusion message of both Peon
@@ -186,6 +192,14 @@ public abstract class Peon extends LivingBeings{
 
 	void backMaster() {
 		
+	}
+	
+	void giveAllMessage(Master master, Peon peon) {
+		master.ownMasterMessage.addAll(ownPeonMessage);
+		List<Message> distinctElements = master.ownMasterMessage.stream().distinct().collect(Collectors.toList());
+		master.ownMasterMessage.clear();
+		master.ownMasterMessage.addAll(distinctElements);
+		peon.ownPeonMessage.clear();
 	}
 	
 

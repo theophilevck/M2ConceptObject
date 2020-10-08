@@ -6,9 +6,9 @@ import entity.Message;
 
 public abstract class Master extends LivingBeings{
 	
-	private ArrayList<Message> ownMessage;
+	protected ArrayList<Message> ownMasterMessage;
 	
-	private ArrayList<Message> knownMessage;
+	protected ArrayList<Message> knownMasterMessage;
 
 	@Override
 	void move() {}
