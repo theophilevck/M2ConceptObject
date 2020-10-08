@@ -205,6 +205,11 @@ public abstract class Peon extends LivingBeings{
 	
 	void fusionMessage (Peon peon, Peon peon2) {
 		peon.ownPeonMessage.addAll(peon2.ownPeonMessage);
+		List<Message> distinctMessagePeon = peon.ownPeonMessage.stream().distinct().collect(Collectors.toList());
+		peon.ownPeonMessage.clear();
+		peon2.ownPeonMessage.clear();
+		peon.ownPeonMessage.addAll(distinctMessagePeon);
+		peon2.ownPeonMessage.addAll(distinctMessagePeon);
 	}
 	
 
