@@ -48,6 +48,7 @@ public abstract class Peon extends LivingBeings{
 					}
 					else {
 						//enconter alliance each peon get random message of the other
+						//giveAMessageToAnAlly(Peon peon1, Peon peon2);
 					}
 				}
 				else {
@@ -210,6 +211,14 @@ public abstract class Peon extends LivingBeings{
 		peon2.ownPeonMessage.clear();
 		peon.ownPeonMessage.addAll(distinctMessagePeon);
 		peon2.ownPeonMessage.addAll(distinctMessagePeon);
+	}
+	
+	//peut etre on pourrait voir si il a déja le message et l'enlever ? 
+	void giveAMessageToAnAlly(Peon peon1, Peon peon2) {
+		int random_int_peon_1 = (int)(Math.random() * (peon1.ownPeonMessage.size() + 1));
+		int random_int_peon_2 = (int)(Math.random() * (peon2.ownPeonMessage.size() + 1));
+		peon1.ownPeonMessage.add(peon2.ownPeonMessage.get(random_int_peon_1));
+		peon2.ownPeonMessage.add(peon1.ownPeonMessage.get(random_int_peon_2));
 	}
 	
 
