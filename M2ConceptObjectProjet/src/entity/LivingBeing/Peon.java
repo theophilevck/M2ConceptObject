@@ -56,25 +56,68 @@ public abstract class Peon extends LivingBeings{
 				this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
 			}
 		}
+		this.consumePE();
 	}
 	
 	public void goingBack() {
 		ArrayList <Case> movePossible=this.checkObstacle(map);
+		Case opti1= new Case(this.X-1,this.Y-1,false);
+		Case opti2= new Case(this.X,this.Y-1,false);
+		Case opti3= new Case(this.X+1,this.Y-1,false);
+		Case opti4= new Case(this.X-1,this.Y,false);
+		Case opti5= new Case(this.X+1,this.Y,false);
+		Case opti6= new Case(this.X-1,this.Y+1,false);
+		Case opti7= new Case(this.X,this.Y+1,false);
+		Case opti8= new Case(this.X+1,this.Y+1,false);
+		ArrayList <Case> bestMove= new ArrayList <Case>();
+		
 		switch (this.getSafeZoneNumber()) {
-		case 0:
-			Case opti= new Case(this.X-1,this.Y-1,false);
-			boolean found=false;
-			while (found==false){
+			case 0:
+				bestMove.add(opti1);bestMove.add(opti2);bestMove.add(opti3);bestMove.add(opti4);
+				bestMove.add(opti5);bestMove.add(opti6);bestMove.add(opti7);bestMove.add(opti8);
 				for(Case c: movePossible) {
-					if (c==opti) {
-						
+					int index=0;
+					if (c==bestMove.get(index)) {
+						this.setX(c.getY());
+						this.setY(c.getY());
 					}
+					index++;
+				}	
+			case 1:
+				bestMove.add(opti3);bestMove.add(opti2);bestMove.add(opti1);bestMove.add(opti4);
+				bestMove.add(opti5);bestMove.add(opti8);bestMove.add(opti7);bestMove.add(opti6);
+				for(Case c: movePossible) {
+					int index=0;
+					if (c==bestMove.get(index)) {
+						this.X=c.getY();
+						this.setY(c.getY());
+					}
+					index++;
 				}
-			}
-			
-			
-			
-		}
+			case 2:
+				bestMove.add(opti6);bestMove.add(opti7);bestMove.add(opti8);bestMove.add(opti4);
+				bestMove.add(opti5);bestMove.add(opti1);bestMove.add(opti2);bestMove.add(opti3);
+				for(Case c: movePossible) {
+					int index=0;
+					if (c==bestMove.get(index)) {
+						this.X=c.getY();
+						this.setY(c.getY());
+					}
+					index++;
+				}
+			case 3:
+				bestMove.add(opti8);bestMove.add(opti7);bestMove.add(opti6);bestMove.add(opti5);
+				bestMove.add(opti4);bestMove.add(opti3);bestMove.add(opti2);bestMove.add(opti1);
+				for(Case c: movePossible) {
+					int index=0;
+					if (c==bestMove.get(index)) {
+						this.X=c.getY();
+						this.setY(c.getY());
+					}
+					index++;
+				}
+				
+		}			
 	}
 	
 	public void consumePE() {
@@ -83,7 +126,7 @@ public abstract class Peon extends LivingBeings{
 	}
 	
 	public void regeneratePE() {
-		
+		this.setPE(75);
 	}
 	
 	public ArrayList<Case> checkObstacle(Map map) {
