@@ -43,6 +43,7 @@ public abstract class Peon extends LivingBeings{
 						}
 						else {
 							//fusion message of both Peon
+							//fusionMessage(peon, peon2);
 						}
 					}
 					else {
@@ -195,11 +196,15 @@ public abstract class Peon extends LivingBeings{
 	}
 	
 	void giveAllMessage(Master master, Peon peon) {
-		master.ownMasterMessage.addAll(ownPeonMessage);
+		master.ownMasterMessage.addAll(peon.ownPeonMessage);
 		List<Message> distinctElements = master.ownMasterMessage.stream().distinct().collect(Collectors.toList());
 		master.ownMasterMessage.clear();
 		master.ownMasterMessage.addAll(distinctElements);
 		peon.ownPeonMessage.clear();
+	}
+	
+	void fusionMessage (Peon peon, Peon peon2) {
+		peon.ownPeonMessage.addAll(peon2.ownPeonMessage);
 	}
 	
 
