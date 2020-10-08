@@ -1,9 +1,13 @@
 package graphique;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import entity.Map;
@@ -12,8 +16,8 @@ import entity.Simulation;
 public class MainMenu extends JFrame{
 
 	MainMenu(){
-		setTitle("strat wars");
-		setSize(1000,1000);
+		setTitle("star wars");
+		setSize(1264,1000);
 		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLayout(null);
@@ -22,10 +26,13 @@ public class MainMenu extends JFrame{
 		/*
 		 * content
 		 * */
-		JButton startButton =new JButton();
+		/*JButton startButton =new JButton();
 		startButton.setText("start");
 		startButton.setBounds(700,50,200,25);
-		add(startButton);
+		add(startButton);*/
+		
+		
+		
 		
 		
 		BoardGame boardGame=new BoardGame(new Simulation(new Map(20,20)));
@@ -45,6 +52,7 @@ public class MainMenu extends JFrame{
 			public void run() {
 				
 				new MainMenu().setVisible(true);
+				
 				}
 	});
 		

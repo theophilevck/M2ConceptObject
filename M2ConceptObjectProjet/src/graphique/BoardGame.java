@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 
 import entity.Simulation;
 
@@ -26,7 +27,8 @@ public class BoardGame extends JComponent{
 	      super.paintComponent(g);
 		Graphics2D g2= (Graphics2D) g;
 		
-		int CASEDIM=20;
+		
+		int CASEDIM=40;
 		ImageIcon img=null;
 		
 		for(int i=0;i<this.simulation.getMap().getX();i++) {
@@ -36,6 +38,7 @@ public class BoardGame extends JComponent{
 				if(this.simulation.getMap().getMap()[i][j].isObstacle()==true) {
 					//load 
 					g2.setPaint(Color.BLACK);
+					g2.fill(new Rectangle2D.Double((i+1)*CASEDIM,(j+1)*CASEDIM,CASEDIM,CASEDIM	));
 				}
 				else {
 					if(this.simulation.getMap().getMap()[i][j].isSafeZone()) {
@@ -53,15 +56,15 @@ public class BoardGame extends JComponent{
 							  g2.setPaint(Color.ORANGE);
 						break;
 					}
+						g2.fill(new Rectangle2D.Double((i+1)*CASEDIM,(j+1)*CASEDIM,CASEDIM,CASEDIM	));
 				}
-					/*
 					if(this.simulation.getMap().getMap()[i][j].isOccupied()==true) {
-						img=new ImageIcon(getClass().getResource("/img/"+this.simulation.getMap().getMap()[i][j].getOccupant().getImage()));
+						img=new ImageIcon(getClass().getResource(this.simulation.getMap().getMap()[i][j].getOccupant().getImage()));
+						g2.fill(new Rectangle2D.Double((i+1)*CASEDIM,(j+1)*CASEDIM,CASEDIM,CASEDIM	));
 						img.paintIcon(null, g2, (i+1)*CASEDIM,(j+1)*CASEDIM);
-					}*/
-				
+					}
 				}
-				g2.fill(new Rectangle2D.Double((i+1)*CASEDIM,(j+1)*CASEDIM,CASEDIM,CASEDIM	));
+				
 			}
 		}
 		g2.dispose();
