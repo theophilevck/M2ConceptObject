@@ -58,7 +58,7 @@ public class Map {
 			}
 		}
 		
-		for(int i=0;i<4;i++) {
+		for(int i=0;i<3;i++) {
 			for(int j=this.getY()-3;j<this.getY();j++) {
 				this.map[i][j].setSafeZone(true);
 				this.map[i][j].setSafeZoneOwner(2);;
