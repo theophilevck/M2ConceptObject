@@ -1,6 +1,7 @@
 package entity.LivingBeing;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 import entity.Case;
 import entity.Map;
@@ -25,13 +26,13 @@ public abstract class Peon extends LivingBeings{
 	@Override
 	public
 	void move() {
-		ArrayList <Case> movePosible=this.checkObstacle(this.map);
-		if(movePosible.size()!=0) {
-			int randomIndex = (int) (Math.random() * movePosible.size());
-			if(movePosible.get(randomIndex).isOccupied()==true){
-				if(movePosible.get(randomIndex).getOccupant().getAlliance()==this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getAlliance()) {
-					if(movePosible.get(randomIndex).getOccupant().getSafeZoneNumber()==this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getSafeZoneNumber()) {
-						if(movePosible.get(randomIndex).getOccupant() instanceof Master) {
+		ArrayList <Case> movePossible=this.checkObstacle(this.map);
+		if(movePossible.size()!=0) {
+			int randomIndex = (int) (Math.random() * movePossible.size());
+			if(movePossible.get(randomIndex).isOccupied()==true){
+				if(movePossible.get(randomIndex).getOccupant().getAlliance()==this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getAlliance()) {
+					if(movePossible.get(randomIndex).getOccupant().getSafeZoneNumber()==this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getSafeZoneNumber()) {
+						if(movePossible.get(randomIndex).getOccupant() instanceof Master) {
 							//give all message to master
 						}
 						else {
@@ -49,19 +50,47 @@ public abstract class Peon extends LivingBeings{
 			else {
 				this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
 				this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);
-				this.setX(movePosible.get(randomIndex).getX());
-				this.setY(movePosible.get(randomIndex).getY());
+				this.setX(movePossible.get(randomIndex).getX());
+				this.setY(movePossible.get(randomIndex).getY());
 				this.getMap().getMap()[this.getX()][this.getY()].setOccupied(true);
 				this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
 			}
 		}
 	}
 	
+	public void goingBack() {
+		ArrayList <Case> movePossible=this.checkObstacle(map);
+		switch (this.getSafeZoneNumber()) {
+		case 0:
+			Case opti= new Case(this.X-1,this.Y-1,false);
+			boolean found=false;
+			while (found==false){
+				for(Case c: movePossible) {
+					if (c==opti) {
+						
+					}
+				}
+			}
+			
+			
+			
+		}
+	}
+	
+	public void consumePE() {
+		int randomNum = ThreadLocalRandom.current().nextInt(1, 4);
+		this.setPE(this.getPE()-randomNum);	
+	}
+	
+	public void regeneratePE() {
+		
+	}
+	
 	public ArrayList<Case> checkObstacle(Map map) {
-		ArrayList <Case> movePosible=new ArrayList<Case>();
+		ArrayList <Case> movePossible=new ArrayList<Case>();
 		
 			if(map.getMap()[this.getX()][this.getY()].isBorder()) {
-				movePosible.addAll(checkObstacleBorder(map, map.getMap()[this.getX()][this.getY()]));
+				movePossible.addAll(checkObstacleBorder(map, map.getMap()[this.getX()][this.getY()]));
 				
 			}
 			else {
@@ -71,17 +100,17 @@ public abstract class Peon extends LivingBeings{
 							//do nothing
 						}
 						else {
-							movePosible.add(map.getMap()[i][j]);
+							movePossible.add(map.getMap()[i][j]);
 						}
 				}
 			}
 		}
-			return movePosible;
+			return movePossible;
 	}
 	
 	
 	public ArrayList<Case> checkObstacleBorder(Map map, Case cas) {
-		ArrayList <Case> movePosible=new ArrayList<Case>();
+		ArrayList <Case> movePossible=new ArrayList<Case>();
 		int i=cas.getX()-1;
 		int j=cas.getY()-1;
 		int iMax=cas.getX()+2;
@@ -102,13 +131,13 @@ public abstract class Peon extends LivingBeings{
 						//do nothing
 					}
 					else {
-						movePosible.add(map.getMap()[a][b]);
+						movePossible.add(map.getMap()[a][b]);
 					}
 					
 				}
 			}
 		}
-		return movePosible;
+		return movePossible;
 	}
 		
 
