@@ -1,13 +1,9 @@
 package graphique;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 
-import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import entity.Map;
@@ -26,9 +22,10 @@ public class MainMenu extends JFrame{
 		/*
 		 * content
 		 * */
+		
 		/*JButton startButton =new JButton();
 		startButton.setText("start");
-		startButton.setBounds(700,50,200,25);
+		startButton.setBounds(900,50,200,25);
 		add(startButton);*/
 		
 		

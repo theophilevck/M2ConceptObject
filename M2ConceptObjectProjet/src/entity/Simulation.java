@@ -12,6 +12,7 @@ import entity.LivingBeing.MasterJedi;
 import entity.LivingBeing.Peon;
 import entity.LivingBeing.Sergent;
 import entity.LivingBeing.StormTrooper;
+import graphique.BoardGame;
 
 public class Simulation {
 	
@@ -22,6 +23,8 @@ public class Simulation {
 	private int day;
 	
 	private int dayMax;
+	
+	private BoardGame boardGame;
 	
 	
 	
@@ -45,9 +48,15 @@ public class Simulation {
 		this.setTeam(this.getTeams());
 		this.setMaster();
 		this.setPeon();
-		System.out.println("test");
+
 		
 		
+	}
+	
+	public void start() {
+		for(Peon p:this.getTeams().get(0).getPeons()) {
+			p.move();
+		}
 	}
 	
 public void setTeam(ArrayList<Team> teams) {
@@ -63,8 +72,8 @@ public void setTeam(ArrayList<Team> teams) {
 	for(Team e:teams) {
 		int randomIndex = (int) (Math.random() * safeZoneNumber.size());
 		//teams.get(randomIndex).setSafeZoneNumber(safeZoneNumber.get(randomIndex));
-		System.out.println("t");
 		e.getAll().forEach(l -> l.setSafeZoneNumber(safeZoneNumber.get(randomIndex)));
+		e.setSafeZoneNumber(safeZoneNumber.get(randomIndex));
 		safeZoneNumber.remove(randomIndex);
 	}
 }
@@ -259,6 +268,14 @@ public void setPeon() {
 
 	public void setDayMax(int dayMax) {
 		this.dayMax = dayMax;
+	}
+
+	public BoardGame getBoardGame() {
+		return boardGame;
+	}
+
+	public void setBoardGame(BoardGame boardGame) {
+		this.boardGame = boardGame;
 	}
 	
 }

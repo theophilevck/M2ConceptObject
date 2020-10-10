@@ -29,8 +29,8 @@ public abstract class Peon extends LivingBeings{
 	}
 
 	@Override
-	public
-	void move() {
+	public void move() {
+		
 		ArrayList <Case> movePossible=this.checkObstacle(this.map);
 		if(movePossible.size()!=0) {
 			int randomIndex = (int) (Math.random() * movePossible.size());
@@ -56,14 +56,21 @@ public abstract class Peon extends LivingBeings{
 				}
 			}
 			else {
+				System.out.println(this.getX());
+				System.out.println(this.getY());
+				System.out.println("");
 				this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
 				this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);
 				this.setX(movePossible.get(randomIndex).getX());
 				this.setY(movePossible.get(randomIndex).getY());
 				this.getMap().getMap()[this.getX()][this.getY()].setOccupied(true);
 				this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
+				
 			}
 		}
+		System.out.println(this.getX());
+		System.out.println(this.getY());
+		System.out.println("");
 		this.consumePE();
 	}
 	
