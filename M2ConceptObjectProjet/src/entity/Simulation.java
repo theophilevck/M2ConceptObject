@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 import entity.LivingBeing.Apprentice;
 import entity.LivingBeing.BountyHunter;
@@ -173,12 +174,26 @@ public void initMessagesMaster() throws IOException {
 	for (Team team: this.getTeams()) {
 		int index=0;
 		for(int i=0;i<lenQuotes/4;i++) {
-			int rand=(int)Math.random()*quotes.size();
+			int rand= ThreadLocalRandom.current().nextInt(0, quotes.size()+1);
 			Message msg=new Message(index,quotes.get(rand));
-			team.getMaitre().setKnownMasterMessage(msg);
+			team.getMaitre().setOwnMasterMessage(msg);
 			quotes.remove(rand);
 		}
 			index++;
+	}
+}
+
+public void initMessagesPeon() {
+	for (Team team: this.getTeams()) {
+		for (Peon peon: team.getPeons()) {
+			int rand= ThreadLocalRandom.current().nextInt(0, 5);
+			ArrayList<Message> messagesForPeons=team.getMaitre().getOwnMasterMessage();
+			for (int i=0;i<rand;i++) {
+				int randNumMessages= ThreadLocalRandom.current().nextInt(0, 5);
+				peon.setMessage(messagesForPeons.get(i));
+				messagesForPeons.remove(i);
+			}
+		}
 	}
 }
 

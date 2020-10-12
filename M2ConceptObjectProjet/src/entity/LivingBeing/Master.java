@@ -14,8 +14,8 @@ public abstract class Master extends LivingBeings{
 		return ownMasterMessage;
 	}
 
-	public void setOwnMasterMessage(ArrayList<Message> ownMasterMessage) {
-		this.ownMasterMessage = ownMasterMessage;
+	public void setOwnMasterMessage(Message msg) {
+		this.ownMasterMessage.add(msg);
 	}
 
 	public ArrayList<Message> getKnownMasterMessage() {
