@@ -12,6 +12,7 @@ import entity.LivingBeing.BountyHunter;
 import entity.LivingBeing.Chewbacca;
 import entity.LivingBeing.Ewak;
 import entity.LivingBeing.JangoFett;
+import entity.LivingBeing.Master;
 import entity.LivingBeing.MasterJedi;
 import entity.LivingBeing.Peon;
 import entity.LivingBeing.Sergent;
@@ -159,7 +160,7 @@ public ArrayList<Team> initTeam() {
 		return teams;
 }
 
-public void initMessagesPeons() throws IOException {
+public void initMessagesMaster() throws IOException {
 	BufferedReader br = new BufferedReader(new FileReader("src/txt/quotes.txt"));
 	ArrayList<String> quotes=new ArrayList<String>();
 	String quote = br.readLine();
@@ -169,22 +170,18 @@ public void initMessagesPeons() throws IOException {
 		quote = br.readLine();		
 	}
 	int lenQuotes=quotes.size();
-	
 	for (Team team: this.getTeams()) {
 		int index=0;
 		for(int i=0;i<lenQuotes/4;i++) {
 			int rand=(int)Math.random()*quotes.size();
-			for(Peon peon: team.getPeons()){
-				Message msg=new Message(index,quotes.get(rand));
-				peon.setMessage(msg);
-			}
+			Message msg=new Message(index,quotes.get(rand));
+			team.getMaitre().setKnownMasterMessage(msg);
 			quotes.remove(rand);
 		}
-		index++;
-
+			index++;
 	}
-
 }
+
 
 public void setPeon() {
 	
