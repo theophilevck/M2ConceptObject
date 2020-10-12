@@ -20,7 +20,7 @@ import entity.LivingBeing.Peon;
 public class BoardGame extends JComponent implements ActionListener{
 	private Image dbImage;
 	private JButton startButton;
-	Timer timer=new Timer(1000, this);
+	Timer timer=new Timer(10, this);
 	
 	private Simulation simulation;
 	

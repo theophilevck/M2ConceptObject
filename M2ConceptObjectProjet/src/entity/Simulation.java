@@ -54,6 +54,13 @@ public class Simulation {
 		this.setTeam(this.getTeams());
 		this.setMaster();
 		this.setPeon();
+		try {
+			this.initMessagesMaster();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.initMessagesPeon();
 
 		
 		
@@ -92,24 +99,33 @@ public void setMaster() {
 		    e.getMaitre().setY(0);
 		    this.getMap().getMap()[0][0].setOccupant(e.getMaitre());
 		    this.getMap().getMap()[0][0].setOccupied(true);
+		    e.getMaitre().setSafeZoneNumber(0);
+		    e.getMaitre().setAlliance(e.getAlliance());
+		    
 		    break;
 		  case 1:
 			  e.getMaitre().setX(map.X-1);
 			  e.getMaitre().setY(0);
 			  this.getMap().getMap()[map.X-1][0].setOccupant(e.getMaitre());
 			  this.getMap().getMap()[map.X-1][0].setOccupied(true);
+			  e.getMaitre().setSafeZoneNumber(1);
+			  e.getMaitre().setAlliance(e.getAlliance());
 		    break;
 		  case 2:
 			  e.getMaitre().setX(0);
 			   e.getMaitre().setY(map.Y-1);
 			   this.getMap().getMap()[0][map.Y-1].setOccupant(e.getMaitre());
 			   this.getMap().getMap()[0][map.Y-1].setOccupied(true);
+			   e.getMaitre().setSafeZoneNumber(2);
+			   e.getMaitre().setAlliance(e.getAlliance());
 			    break;
 		  case 3:
 			  e.getMaitre().setX(map.X-1);
 			  e.getMaitre().setY(map.Y-1);
 			  this.getMap().getMap()[map.X-1][map.Y-1].setOccupant(e.getMaitre());
 			  this.getMap().getMap()[map.X-1][map.Y-1].setOccupied(true);
+			  e.getMaitre().setSafeZoneNumber(3);
+			  e.getMaitre().setAlliance(e.getAlliance());
 			    break;
 		}
 	}
@@ -171,11 +187,12 @@ public void initMessagesMaster() throws IOException {
 		quote = br.readLine();		
 	}
 	int lenQuotes=quotes.size();
+	int index=0;
 	for (Team team: this.getTeams()) {
 		ArrayList <Message>messages= new ArrayList<Message>();
-		int index=0;
+		
 		for(int i=0;i<lenQuotes/4;i++) {
-			int rand= ThreadLocalRandom.current().nextInt(0, quotes.size()+1);
+			int rand= ThreadLocalRandom.current().nextInt(0, quotes.size());
 			Message msg=new Message(index,quotes.get(rand));
 			messages.add(msg);
 			quotes.remove(rand);
@@ -188,12 +205,13 @@ public void initMessagesMaster() throws IOException {
 public void initMessagesPeon() {
 	for (Team team: this.getTeams()) {
 		for (Peon peon: team.getPeons()) {
-			int rand= ThreadLocalRandom.current().nextInt(0, 5);
-			ArrayList<Message> messagesForPeons=team.getMaitre().getOwnMasterMessage();
+			int rand= ThreadLocalRandom.current().nextInt(1, 5);
+			ArrayList<Message> messagesForPeons=new ArrayList<Message>();
+			messagesForPeons.addAll(team.getMaitre().getOwnMasterMessage());
 			for (int i=0;i<rand;i++) {
-				int randNumMessages= ThreadLocalRandom.current().nextInt(0, 5);
-				peon.setMessage(messagesForPeons.get(i));
-				messagesForPeons.remove(i);
+				int randNumMessages= (int) (Math.random() * messagesForPeons.size());
+				peon.setMessage(messagesForPeons.get(randNumMessages));
+				messagesForPeons.remove(randNumMessages);
 			}
 		}
 	}
@@ -209,16 +227,25 @@ public void setPeon() {
 	  			this.getMap().getMap()[1][0].setOccupied(true);
 	  			e.getPeons().get(0).setX(1);
 				e.getPeons().get(0).setY(0);
+				e.getPeons().get(0).setMasterX(0);
+				e.getPeons().get(0).setMasterY(0);
+				e.getPeons().get(0).setAlliance(e.getAlliance());
 	  	
 	  			this.getMap().getMap()[1][1].setOccupant(e.getPeons().get(1));
 	  			this.getMap().getMap()[1][1].setOccupied(true);
 	  			e.getPeons().get(1).setX(1);
 				e.getPeons().get(1).setY(1);
+				e.getPeons().get(1).setMasterX(0);
+				e.getPeons().get(1).setMasterY(0);
+				e.getPeons().get(1).setAlliance(e.getAlliance());
 	  	
 	  			this.getMap().getMap()[0][1].setOccupant(e.getPeons().get(2));
 	  			this.getMap().getMap()[0][1].setOccupied(true);
 	  			e.getPeons().get(2).setX(0);
 				e.getPeons().get(2).setY(1);
+				e.getPeons().get(2).setMasterX(0);
+				e.getPeons().get(2).setMasterY(0);
+				e.getPeons().get(2).setAlliance(e.getAlliance());
 				
 				
 			break;
@@ -228,16 +255,25 @@ public void setPeon() {
 	  		this.getMap().getMap()[map.X-2][0].setOccupied(true);
 	  		e.getPeons().get(0).setX(map.X-2);
 			e.getPeons().get(0).setY(0);
+			e.getPeons().get(0).setMasterX(map.X-1);
+			e.getPeons().get(0).setMasterY(0);
+			e.getPeons().get(0).setAlliance(e.getAlliance());
 	  	
 	  		this.getMap().getMap()[map.X-2][1].setOccupant(e.getPeons().get(1));
 	  		this.getMap().getMap()[map.X-2][1].setOccupied(true);
 	  		e.getPeons().get(1).setX(map.X-2);
 			e.getPeons().get(1).setY(1);
+			e.getPeons().get(1).setMasterX(map.X-1);
+			e.getPeons().get(1).setMasterY(0);
+			e.getPeons().get(1).setAlliance(e.getAlliance());
 	  	
 	  		this.getMap().getMap()[map.X-1][1].setOccupant(e.getPeons().get(2));
 	  		this.getMap().getMap()[map.X-1][1].setOccupied(true);
 	  		e.getPeons().get(2).setX(map.X-1);
 			e.getPeons().get(2).setY(1);
+			e.getPeons().get(2).setMasterX(map.X-1);
+			e.getPeons().get(2).setMasterY(0);
+			e.getPeons().get(2).setAlliance(e.getAlliance());
 				
 			break;
 				
@@ -248,16 +284,26 @@ public void setPeon() {
 		  		this.getMap().getMap()[0][map.Y-2].setOccupied(true);
 		  		e.getPeons().get(0).setX(0);
 				e.getPeons().get(0).setY(map.Y-2);
+				e.getPeons().get(0).setMasterX(0);
+				e.getPeons().get(0).setMasterY(map.Y-1);
+				e.getPeons().get(0).setAlliance(e.getAlliance());
+				
 		  	
 		  		this.getMap().getMap()[1][map.Y-2].setOccupant(e.getPeons().get(1));
 		  		this.getMap().getMap()[1][map.Y-2].setOccupied(true);
 		  		e.getPeons().get(1).setX(1);
 				e.getPeons().get(1).setY(map.Y-2);
+				e.getPeons().get(1).setMasterX(0);
+				e.getPeons().get(1).setMasterY(map.Y-1);
+				e.getPeons().get(1).setAlliance(e.getAlliance());
 		  	
 		  		this.getMap().getMap()[1][map.Y-1].setOccupant(e.getPeons().get(2));
 		  		this.getMap().getMap()[1][map.Y-1].setOccupied(true);
 		  		e.getPeons().get(2).setX(1);
 				e.getPeons().get(2).setY(map.Y-1);
+				e.getPeons().get(2).setMasterX(0);
+				e.getPeons().get(2).setMasterY(map.Y-1);
+				e.getPeons().get(2).setAlliance(e.getAlliance());
 			break;
 				
 			case(3):
@@ -265,16 +311,25 @@ public void setPeon() {
 		  		this.getMap().getMap()[map.X-2][map.Y-2].setOccupied(true);
 		  		e.getPeons().get(0).setX(map.X-2);
 				e.getPeons().get(0).setY(map.Y-2);
+				e.getPeons().get(0).setMasterX(map.X-1);
+				e.getPeons().get(0).setMasterY(map.Y-1);
+				e.getPeons().get(0).setAlliance(e.getAlliance());
 		  	
 		  		this.getMap().getMap()[map.X-2][map.Y-1].setOccupant(e.getPeons().get(1));
 		  		this.getMap().getMap()[map.X-2][map.Y-1].setOccupied(true);
 		  		e.getPeons().get(1).setX(map.X-2);
 				e.getPeons().get(1).setY(map.Y-1);
+				e.getPeons().get(1).setMasterX(map.X-1);
+				e.getPeons().get(1).setMasterY(map.Y-1);
+				e.getPeons().get(1).setAlliance(e.getAlliance());
 		  	
 		  		this.getMap().getMap()[map.X-1][map.Y-2].setOccupant(e.getPeons().get(2));
 		  		this.getMap().getMap()[map.X-1][map.Y-2].setOccupied(true);
 		  		e.getPeons().get(2).setX(map.X-1);
 				e.getPeons().get(2).setY(map.Y-2);
+				e.getPeons().get(2).setMasterX(map.X-1);
+				e.getPeons().get(2).setMasterY(map.Y-1);
+				e.getPeons().get(2).setAlliance(e.getAlliance());
 			break;
 			
 			}
