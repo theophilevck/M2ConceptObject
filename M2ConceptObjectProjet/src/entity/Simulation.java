@@ -1,5 +1,9 @@
 package entity;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -153,6 +157,33 @@ public ArrayList<Team> initTeam() {
 		teams.add(mandalorian);
 		
 		return teams;
+}
+
+public void initMessagesPeons() throws IOException {
+	BufferedReader br = new BufferedReader(new FileReader("src/txt/quotes.txt"));
+	ArrayList<String> quotes=new ArrayList<String>();
+	String quote = br.readLine();
+	while(quote != null)
+	{
+		quotes.add(quote);
+		quote = br.readLine();		
+	}
+	int lenQuotes=quotes.size();
+	
+	for (Team team: this.getTeams()) {
+		int index=0;
+		for(int i=0;i<lenQuotes/4;i++) {
+			int rand=(int)Math.random()*quotes.size();
+			for(Peon peon: team.getPeons()){
+				Message msg=new Message(index,quotes.get(rand));
+				peon.setMessage(msg);
+			}
+			quotes.remove(rand);
+		}
+		index++;
+
+	}
+
 }
 
 public void setPeon() {

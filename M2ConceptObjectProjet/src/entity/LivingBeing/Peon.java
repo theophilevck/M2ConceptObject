@@ -203,6 +203,8 @@ public abstract class Peon extends LivingBeings{
 		
 	}
 	
+	
+	
 	void giveAllMessage(Master master, Peon peon) {
 		master.ownMasterMessage.addAll(peon.ownPeonMessage);
 		List<Message> distinctElements = master.ownMasterMessage.stream().distinct().collect(Collectors.toList());
@@ -267,6 +269,10 @@ public abstract class Peon extends LivingBeings{
 
 	public void setMap(Map map) {
 		this.map = map;
+	}
+	
+	public void setMessage(Message msg) {
+		this.ownPeonMessage.add(msg);
 	}
 	
 }

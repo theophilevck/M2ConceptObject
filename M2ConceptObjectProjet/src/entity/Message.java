@@ -6,6 +6,10 @@ public class Message {
 	
 	private String message;
 
+	public Message(int team, String message) {
+		this.team=team;
+		this.message=message;
+	}
 	public int getTeam() {
 		return team;
 	}
