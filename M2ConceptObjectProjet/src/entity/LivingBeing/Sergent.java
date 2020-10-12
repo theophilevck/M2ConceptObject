@@ -2,7 +2,7 @@ package entity.LivingBeing;
 
 public class Sergent extends Master{
 	
-	private static Sergent idenVersion = new Sergent();
+	public static Sergent darth_vader = new Sergent();
 
 	public Sergent() {
 		super();
