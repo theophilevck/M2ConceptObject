@@ -39,11 +39,11 @@ public abstract class Peon extends LivingBeings{
 					if(movePossible.get(randomIndex).getOccupant().getSafeZoneNumber()==this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getSafeZoneNumber()) {
 						if(movePossible.get(randomIndex).getOccupant() instanceof Master) {
 							//Trouver comment amener le peon et master dans le move
-							//giveAllMessage(master, peon);
+							//giveAllMessage(Master master, Peon peon);
 						}
 						else {
 							//fusion message of both Peon
-							//fusionMessage(peon, peon2);
+							//fusionMessage(Peon peon, Peon peon2);
 						}
 					}
 					else {
@@ -53,6 +53,7 @@ public abstract class Peon extends LivingBeings{
 				}
 				else {
 					//fight for message
+					//fight(Peon peon, Peon peon);
 				}
 			}
 			else {
@@ -228,6 +229,25 @@ public abstract class Peon extends LivingBeings{
 		int random_int_peon_2 = (int)(Math.random() * (peon2.ownPeonMessage.size() + 1));
 		peon1.ownPeonMessage.add(peon2.ownPeonMessage.get(random_int_peon_1));
 		peon2.ownPeonMessage.add(peon1.ownPeonMessage.get(random_int_peon_2));
+	}
+	
+	void fight(Peon peon1, Peon peon2){
+		int random_att_int_peon_1 = (int)(Math.random() * (10 + 1));
+		int random_att_int_peon_2 = (int)(Math.random() * (10 + 1));
+		int random_int_peon_1 = (int)(Math.random() * (peon1.ownPeonMessage.size() + 1));
+		int random_int_peon_2 = (int)(Math.random() * (peon2.ownPeonMessage.size() + 1));
+		if (random_att_int_peon_1 > random_att_int_peon_2) {
+			peon1.ownPeonMessage.add(peon2.ownPeonMessage.get(random_int_peon_1));
+			List<Message> distinctMessagePeon = peon1.ownPeonMessage.stream().distinct().collect(Collectors.toList());
+			peon1.ownPeonMessage.clear();
+			peon1.ownPeonMessage.addAll(distinctMessagePeon);
+		}
+		else {
+			peon2.ownPeonMessage.add(peon1.ownPeonMessage.get(random_int_peon_2));
+			List<Message> distinctMessagePeon = peon2.ownPeonMessage.stream().distinct().collect(Collectors.toList());
+			peon2.ownPeonMessage.clear();
+			peon2.ownPeonMessage.addAll(distinctMessagePeon);
+		}
 	}
 	
 
