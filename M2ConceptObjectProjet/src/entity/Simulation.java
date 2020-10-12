@@ -172,14 +172,16 @@ public void initMessagesMaster() throws IOException {
 	}
 	int lenQuotes=quotes.size();
 	for (Team team: this.getTeams()) {
+		ArrayList <Message>messages= new ArrayList<Message>();
 		int index=0;
 		for(int i=0;i<lenQuotes/4;i++) {
 			int rand= ThreadLocalRandom.current().nextInt(0, quotes.size()+1);
 			Message msg=new Message(index,quotes.get(rand));
-			team.getMaitre().setOwnMasterMessage(msg);
+			messages.add(msg);
 			quotes.remove(rand);
 		}
-			index++;
+		team.getMaitre().setOwnMasterMessage(messages);
+		index++;
 	}
 }
 
