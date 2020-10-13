@@ -56,7 +56,10 @@ public class BoardGame extends JComponent implements ActionListener{
 			for(Team t:simulation.getTeams()) {
 				System.out.println(t.toString());
 				for(Peon p:t.getPeons()) {
-					p.move();
+					if (p.getPE() > 0) {
+						p.move();
+					}
+					
 				}
 			}
 			repaint();// this will call at every 1 second

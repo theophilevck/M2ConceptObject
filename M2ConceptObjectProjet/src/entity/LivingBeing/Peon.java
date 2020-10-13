@@ -28,55 +28,67 @@ public abstract class Peon extends LivingBeings{
 		this.map = map;
 		this.ownPeonMessage=new ArrayList<Message>();
 	}
+	
 
 	@Override
 	public void move() {
-		
-		ArrayList <Case> movePossible=this.checkObstacle(this.map);
-		if(movePossible.size()!=0) {
-			int randomIndex = (int) (Math.random() * movePossible.size());
-			if(movePossible.get(randomIndex).isOccupied()==true){
-				if(movePossible.get(randomIndex).getOccupant().getAlliance().equals(this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getAlliance())) {
-					if(movePossible.get(randomIndex).getOccupant().getSafeZoneNumber()==this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getSafeZoneNumber()) {
-						if(movePossible.get(randomIndex).getOccupant() instanceof Master) {
-							//Trouver comment amener le peon et master dans le move
-							giveAllMessage((Master) this.map.getMap()[this.getMasterX()][this.getMasterY()].getOccupant(), this);
-							System.out.println("giveAllMessage");
-						}
-						else {
-							//fusion message of both Peon
-							fusionMessage(this, (Peon) movePossible.get(randomIndex).getOccupant());
-							System.out.println("fusionMessage");
-						}
-					}
-					else {
-						//enconter alliance each peon get random message of the other
-						giveAMessageToAnAlly(this, (Peon) movePossible.get(randomIndex).getOccupant());
-						System.out.println("giveAMessageToAnAlly");
-					}
-				}
-				else {
-					//fight for message
-					this.fight(this, (Peon) movePossible.get(randomIndex).getOccupant());
-					System.out.println("fight");
-				}
-			}
-			else {
-				System.out.println(this.getX());
-				System.out.println(this.getY());
-				System.out.println("");
-				this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
-				this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);
-				this.setX(movePossible.get(randomIndex).getX());
-				this.setY(movePossible.get(randomIndex).getY());
-				this.getMap().getMap()[this.getX()][this.getY()].setOccupied(true);
-				this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
-			}
+		if (this.getMap().getMap()[this.getX()][this.getY()].isSafeZone()==true) {
+			regeneratePE();
 		}
-		System.out.println(this.getX());
-		System.out.println(this.getY());
-		System.out.println("");
-		this.consumePE();
+		if (this.getPE() < this.getPEMax() /2) {
+			goingBack();
+		} else if (this.getPE() <= 0) {
+			this.getMap().getMap()[this.getX()][this.getY()].setObstacle(true);
+			System.out.printf("PLUS DE MANA");
+			
+		} else {
+			ArrayList<Case> movePossible = this.checkObstacle(this.map);
+			if (movePossible.size() != 0) {
+				int randomIndex = (int) (Math.random() * movePossible.size());
+				if (movePossible.get(randomIndex).isOccupied() == true) {
+					if (movePossible.get(randomIndex).getOccupant().getAlliance()
+							.equals(this.getMap().getMap()[this.getX()][this.getY()].getOccupant().getAlliance())) {
+						if (movePossible.get(randomIndex).getOccupant()
+								.getSafeZoneNumber() == this.getMap().getMap()[this.getX()][this.getY()].getOccupant()
+										.getSafeZoneNumber()) {
+							if (movePossible.get(randomIndex).getOccupant() instanceof Master) {
+								// Trouver comment amener le peon et master dans le move
+								giveAllMessage(
+										(Master) this.map.getMap()[this.getMasterX()][this.getMasterY()].getOccupant(),
+										this);
+								System.out.println("giveAllMessage");
+							} else {
+								// fusion message of both Peon
+								fusionMessage(this, (Peon) movePossible.get(randomIndex).getOccupant());
+								System.out.println("fusionMessage");
+							}
+						} else {
+							// enconter alliance each peon get random message of the other
+							giveAMessageToAnAlly(this, (Peon) movePossible.get(randomIndex).getOccupant());
+							System.out.println("giveAMessageToAnAlly");
+						}
+					} else {
+						// fight for message
+						this.fight(this, (Peon) movePossible.get(randomIndex).getOccupant());
+						System.out.println("fight");
+					}
+				} else {
+					System.out.println(this.getX());
+					System.out.println(this.getY());
+					System.out.println("");
+					this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
+					this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);
+					this.setX(movePossible.get(randomIndex).getX());
+					this.setY(movePossible.get(randomIndex).getY());
+					this.getMap().getMap()[this.getX()][this.getY()].setOccupied(true);
+					this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
+				}
+			}
+			System.out.println(this.getX());
+			System.out.println(this.getY());
+			System.out.println("");
+			this.consumePE();
+		}
 	}
 	
 	public void goingBack() {
@@ -146,7 +158,7 @@ public abstract class Peon extends LivingBeings{
 	}
 	
 	public void regeneratePE() {
-		this.setPE(75);
+		this.setPE(200);
 	}
 	
 	public ArrayList<Case> checkObstacle(Map map) {

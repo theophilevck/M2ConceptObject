@@ -230,6 +230,7 @@ public void setPeon() {
 				e.getPeons().get(0).setMasterX(0);
 				e.getPeons().get(0).setMasterY(0);
 				e.getPeons().get(0).setAlliance(e.getAlliance());
+				e.getPeons().get(0).setPE(200);
 	  	
 	  			this.getMap().getMap()[1][1].setOccupant(e.getPeons().get(1));
 	  			this.getMap().getMap()[1][1].setOccupied(true);
@@ -238,6 +239,7 @@ public void setPeon() {
 				e.getPeons().get(1).setMasterX(0);
 				e.getPeons().get(1).setMasterY(0);
 				e.getPeons().get(1).setAlliance(e.getAlliance());
+				e.getPeons().get(1).setPE(200);
 	  	
 	  			this.getMap().getMap()[0][1].setOccupant(e.getPeons().get(2));
 	  			this.getMap().getMap()[0][1].setOccupied(true);
@@ -246,6 +248,7 @@ public void setPeon() {
 				e.getPeons().get(2).setMasterX(0);
 				e.getPeons().get(2).setMasterY(0);
 				e.getPeons().get(2).setAlliance(e.getAlliance());
+				e.getPeons().get(2).setPE(200);
 				
 				
 			break;
@@ -258,6 +261,7 @@ public void setPeon() {
 			e.getPeons().get(0).setMasterX(map.X-1);
 			e.getPeons().get(0).setMasterY(0);
 			e.getPeons().get(0).setAlliance(e.getAlliance());
+			e.getPeons().get(0).setPE(200);
 	  	
 	  		this.getMap().getMap()[map.X-2][1].setOccupant(e.getPeons().get(1));
 	  		this.getMap().getMap()[map.X-2][1].setOccupied(true);
@@ -266,6 +270,7 @@ public void setPeon() {
 			e.getPeons().get(1).setMasterX(map.X-1);
 			e.getPeons().get(1).setMasterY(0);
 			e.getPeons().get(1).setAlliance(e.getAlliance());
+			e.getPeons().get(1).setPE(200);
 	  	
 	  		this.getMap().getMap()[map.X-1][1].setOccupant(e.getPeons().get(2));
 	  		this.getMap().getMap()[map.X-1][1].setOccupied(true);
@@ -274,6 +279,7 @@ public void setPeon() {
 			e.getPeons().get(2).setMasterX(map.X-1);
 			e.getPeons().get(2).setMasterY(0);
 			e.getPeons().get(2).setAlliance(e.getAlliance());
+			e.getPeons().get(2).setPE(200);
 				
 			break;
 				
@@ -287,6 +293,7 @@ public void setPeon() {
 				e.getPeons().get(0).setMasterX(0);
 				e.getPeons().get(0).setMasterY(map.Y-1);
 				e.getPeons().get(0).setAlliance(e.getAlliance());
+				e.getPeons().get(0).setPE(200);
 				
 		  	
 		  		this.getMap().getMap()[1][map.Y-2].setOccupant(e.getPeons().get(1));
@@ -296,6 +303,7 @@ public void setPeon() {
 				e.getPeons().get(1).setMasterX(0);
 				e.getPeons().get(1).setMasterY(map.Y-1);
 				e.getPeons().get(1).setAlliance(e.getAlliance());
+				e.getPeons().get(1).setPE(200);
 		  	
 		  		this.getMap().getMap()[1][map.Y-1].setOccupant(e.getPeons().get(2));
 		  		this.getMap().getMap()[1][map.Y-1].setOccupied(true);
@@ -304,6 +312,7 @@ public void setPeon() {
 				e.getPeons().get(2).setMasterX(0);
 				e.getPeons().get(2).setMasterY(map.Y-1);
 				e.getPeons().get(2).setAlliance(e.getAlliance());
+				e.getPeons().get(2).setPE(200);
 			break;
 				
 			case(3):
@@ -314,6 +323,7 @@ public void setPeon() {
 				e.getPeons().get(0).setMasterX(map.X-1);
 				e.getPeons().get(0).setMasterY(map.Y-1);
 				e.getPeons().get(0).setAlliance(e.getAlliance());
+				e.getPeons().get(0).setPE(200);
 		  	
 		  		this.getMap().getMap()[map.X-2][map.Y-1].setOccupant(e.getPeons().get(1));
 		  		this.getMap().getMap()[map.X-2][map.Y-1].setOccupied(true);
@@ -322,6 +332,7 @@ public void setPeon() {
 				e.getPeons().get(1).setMasterX(map.X-1);
 				e.getPeons().get(1).setMasterY(map.Y-1);
 				e.getPeons().get(1).setAlliance(e.getAlliance());
+				e.getPeons().get(1).setPE(200);
 		  	
 		  		this.getMap().getMap()[map.X-1][map.Y-2].setOccupant(e.getPeons().get(2));
 		  		this.getMap().getMap()[map.X-1][map.Y-2].setOccupied(true);
@@ -330,6 +341,7 @@ public void setPeon() {
 				e.getPeons().get(2).setMasterX(map.X-1);
 				e.getPeons().get(2).setMasterY(map.Y-1);
 				e.getPeons().get(2).setAlliance(e.getAlliance());
+				e.getPeons().get(2).setPE(200);
 			break;
 			
 			}
