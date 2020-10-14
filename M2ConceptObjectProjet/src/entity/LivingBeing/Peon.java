@@ -1,6 +1,8 @@
 package entity.LivingBeing;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -215,10 +217,41 @@ public abstract class Peon extends LivingBeings{
 		return movePossible;
 	}
 
-	void backMaster() {
-		
+	void backMaster(Map map, Case cas) {
+		Case source=new Case(this.X,this.Y);
+		Queue<Case> queue= new LinkedList<Case>();
+		queue.add(source);
+		while(!queue.isEmpty()) {
+			Case poped = queue.poll();
+			if(map.getMap()[poped.getX()][poped.getY()].isSafeZone()==true) {
+				return;
+			}
+			else {
+				map.getMap()[poped.getX()][poped.getY()].setSafeZone(false);
+				
+				List<Case> neighbourList = addNeighbours(poped, map);
+				queue.addAll(neighbourList);
+			}
+		}		
 	}
-	
+private static List<Case> addNeighbours(Case poped, Map map) {
+		
+		List<Case> list = new LinkedList<Case>();
+		
+		if((poped.getX() > 0 && poped.getX()-1 < map.getMap().length) && map.getMap()[poped.getX()-1][poped.getY()].isOccupied() != false) {
+			list.add(new Case(poped.getX()-1, poped.getY()));
+		}
+		if((poped.getX()+1 > 0 && poped.getX()+1 < map.getMap().length) && map.getMap()[poped.getX()+1][poped.getY()].isOccupied() != false) {
+			list.add(new Case(poped.getX()+1, poped.getY()));
+		}
+		if((poped.getY()-1 > 0 && poped.getY()-1 < map.getMap().length) && map.getMap()[poped.getX()][poped.getY()-1].isOccupied() != false) {
+			list.add(new Case(poped.getX(), poped.getY()));
+		}
+		if((poped.getY()+1 > 0 && poped.getY()+1 < map.getMap().length) && map.getMap()[poped.getX()][poped.getY()+1].isOccupied() != false) {
+			list.add(new Case(poped.getX(), poped.getY()));
+		}		
+		return list;
+	}
 	
 	
 	void giveAllMessage(Master master, Peon peon) {

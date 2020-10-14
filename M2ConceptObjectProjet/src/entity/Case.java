@@ -12,6 +12,12 @@ public class Case {
 		this.border=border;
 		
 	}
+	
+	public Case(int x, int y) {
+		super();
+		this.X = x;
+		this.Y = y;		
+	}
 
 	private boolean safeZone;
 	
