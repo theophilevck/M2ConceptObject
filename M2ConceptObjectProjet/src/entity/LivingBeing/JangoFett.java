@@ -2,10 +2,17 @@ package entity.LivingBeing;
 
 public class JangoFett extends Master{
 	
-	public static JangoFett jangoFett = new JangoFett();
+	private static JangoFett jangoFett;
 
-	public JangoFett() {
+	private JangoFett() {
 		super();
 		this.image="/img/jangofett.png";
+	}
+	
+	public static JangoFett getInstance() {
+		if(jangoFett==null) {
+			jangoFett=new JangoFett();
+		}
+		return jangoFett;
 	}
 }

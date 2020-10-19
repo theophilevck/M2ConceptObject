@@ -2,10 +2,17 @@ package entity.LivingBeing;
 
 public class MasterJedi extends Master{
 	
-	public static MasterJedi yoda = new MasterJedi();
+	private static MasterJedi yoda ;
 	
-	public MasterJedi() {
+	private MasterJedi() {
 		super();
 		this.image="/img/yoda.png";
+	}
+	
+	public static MasterJedi getInstance() {
+		if(yoda==null) {
+			yoda=new MasterJedi();
+		}
+		return yoda;
 	}
 }

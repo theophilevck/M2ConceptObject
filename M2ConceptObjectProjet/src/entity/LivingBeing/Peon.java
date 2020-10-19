@@ -15,7 +15,7 @@ public abstract class Peon extends LivingBeings{
 	
 	protected int PE;
 	
-	protected int PEMax;
+	protected int PEMax=200;
 	
 	protected int MasterX;
 	
@@ -38,10 +38,17 @@ public abstract class Peon extends LivingBeings{
 			regeneratePE();
 		}
 		if (this.getPE() < this.getPEMax() /2) {
-			goingBack();
+			ArrayList <Case> movePossible=this.goingBack();
+			this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
+			this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);
+			this.setX(movePossible.get(0).getX());
+			this.setY(movePossible.get(0).getY());
+			this.getMap().getMap()[this.getX()][this.getY()].setOccupied(true);
+			this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
+			
 		} else if (this.getPE() <= 0) {
 			this.getMap().getMap()[this.getX()][this.getY()].setObstacle(true);
-			System.out.printf("PLUS DE MANA");
+			System.out.printf("PLUS DE PE");
 			
 		} else {
 			ArrayList<Case> movePossible = this.checkObstacle(this.map);
@@ -93,7 +100,7 @@ public abstract class Peon extends LivingBeings{
 		}
 	}
 	
-	public void goingBack() {
+	public ArrayList<Case> goingBack() {
 		ArrayList <Case> movePossible=this.checkObstacle(map);
 		Case opti1= new Case(this.X-1,this.Y-1,false);
 		Case opti2= new Case(this.X,this.Y-1,false);
@@ -150,8 +157,8 @@ public abstract class Peon extends LivingBeings{
 					}
 					index++;
 				}
-				
-		}			
+		}
+		return bestMove;
 	}
 	
 	public void consumePE() {

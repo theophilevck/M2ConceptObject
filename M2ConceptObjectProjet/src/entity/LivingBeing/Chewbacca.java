@@ -2,10 +2,17 @@ package entity.LivingBeing;
 
 public class Chewbacca extends Master{
 
-	public static Chewbacca chewbacca = new Chewbacca();
+	private static Chewbacca chewbacca;
 	
-	public Chewbacca() {
+	private Chewbacca() {
 		super();
 		this.image="/img/chewbi.png";
+	}
+	
+	public static Chewbacca getInstance() {
+		if(chewbacca==null) {
+			chewbacca=new Chewbacca();
+		}
+		return chewbacca;
 	}
 }

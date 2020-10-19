@@ -141,7 +141,7 @@ public ArrayList<Team> initTeam() {
 		while (pion0.size()!=3) {
 			pion0.add(new Apprentice(this.getMap()));
 		}
-		Jedi jedi =new Jedi(MasterJedi.yoda, pion0,Alliance.Rebellion);
+		Jedi jedi =new Jedi(MasterJedi.getInstance(), pion0,Alliance.Rebellion);
 		jedi.getAll().addAll(pion0);
 		jedi.getAll().add(jedi.getMaitre());
 		teams.add(jedi);
@@ -151,7 +151,7 @@ public ArrayList<Team> initTeam() {
 		while (pion1.size()!=3) {
 			pion1.add(new Ewak(this.getMap()));
 		}
-		Wookie wookie =new Wookie(Chewbacca.chewbacca, pion1,Alliance.Rebellion);
+		Wookie wookie =new Wookie(Chewbacca.getInstance(), pion1,Alliance.Rebellion);
 		wookie.getAll().addAll(pion1);
 		wookie.getAll().add(wookie.getMaitre());
 		teams.add(wookie);
@@ -160,7 +160,7 @@ public ArrayList<Team> initTeam() {
 		while (pion2.size()!=3) {
 			pion2.add(new StormTrooper(this.getMap()));
 		}
-		Empire empire =new Empire(Sergent.darth_vader, pion2,Alliance.Empire);
+		Empire empire =new Empire(Sergent.getInstance(), pion2,Alliance.Empire);
 		empire.getAll().addAll(pion2);
 		empire.getAll().add(empire.getMaitre());
 		teams.add(empire);
@@ -169,7 +169,7 @@ public ArrayList<Team> initTeam() {
 		while (pion3.size()!=3) {
 			pion3.add(new BountyHunter(this.getMap()));
 		}
-		Mandalorian mandalorian =new Mandalorian(JangoFett.jangoFett, pion3,Alliance.Empire);
+		Mandalorian mandalorian =new Mandalorian(JangoFett.getInstance(), pion3,Alliance.Empire);
 		mandalorian.getAll().addAll(pion3);
 		mandalorian.getAll().add(mandalorian.getMaitre());
 		teams.add(mandalorian);
