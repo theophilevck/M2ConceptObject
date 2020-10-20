@@ -60,9 +60,7 @@ public class Simulation {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.initMessagesPeon();
-
-		
+		this.initMessagesPeon();		
 		
 	}
 	

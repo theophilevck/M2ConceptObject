@@ -38,11 +38,11 @@ public abstract class Peon extends LivingBeings{
 			regeneratePE();
 		}
 		if (this.getPE() < this.getPEMax() /2) {
-			ArrayList <Case> movePossible=this.goingBack();
+			Case movePossible=this.backMaster(this.getMap(),this.getMap().getMap()[this.getX()][this.getY()]);
 			this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
 			this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);
-			this.setX(movePossible.get(0).getX());
-			this.setY(movePossible.get(0).getY());
+			this.setX(movePossible.getX());
+			this.setY(movePossible.getY());
 			this.getMap().getMap()[this.getX()][this.getY()].setOccupied(true);
 			this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
 			
@@ -100,66 +100,7 @@ public abstract class Peon extends LivingBeings{
 		}
 	}
 	
-	public ArrayList<Case> goingBack() {
-		ArrayList <Case> movePossible=this.checkObstacle(map);
-		Case opti1= new Case(this.X-1,this.Y-1,false);
-		Case opti2= new Case(this.X,this.Y-1,false);
-		Case opti3= new Case(this.X+1,this.Y-1,false);
-		Case opti4= new Case(this.X-1,this.Y,false);
-		Case opti5= new Case(this.X+1,this.Y,false);
-		Case opti6= new Case(this.X-1,this.Y+1,false);
-		Case opti7= new Case(this.X,this.Y+1,false);
-		Case opti8= new Case(this.X+1,this.Y+1,false);
-		ArrayList <Case> bestMove= new ArrayList <Case>();
-		
-		switch (this.getSafeZoneNumber()) {
-			case 0:
-				bestMove.add(opti1);bestMove.add(opti2);bestMove.add(opti3);bestMove.add(opti4);
-				bestMove.add(opti5);bestMove.add(opti6);bestMove.add(opti7);bestMove.add(opti8);
-				for(Case c: movePossible) {
-					int index=0;
-					if (c==bestMove.get(index)) {
-						this.setX(c.getY());
-						this.setY(c.getY());
-					}
-					index++;
-				}	
-			case 1:
-				bestMove.add(opti3);bestMove.add(opti2);bestMove.add(opti1);bestMove.add(opti4);
-				bestMove.add(opti5);bestMove.add(opti8);bestMove.add(opti7);bestMove.add(opti6);
-				for(Case c: movePossible) {
-					int index=0;
-					if (c==bestMove.get(index)) {
-						this.X=c.getY();
-						this.setY(c.getY());
-					}
-					index++;
-				}
-			case 2:
-				bestMove.add(opti6);bestMove.add(opti7);bestMove.add(opti8);bestMove.add(opti4);
-				bestMove.add(opti5);bestMove.add(opti1);bestMove.add(opti2);bestMove.add(opti3);
-				for(Case c: movePossible) {
-					int index=0;
-					if (c==bestMove.get(index)) {
-						this.X=c.getY();
-						this.setY(c.getY());
-					}
-					index++;
-				}
-			case 3:
-				bestMove.add(opti8);bestMove.add(opti7);bestMove.add(opti6);bestMove.add(opti5);
-				bestMove.add(opti4);bestMove.add(opti3);bestMove.add(opti2);bestMove.add(opti1);
-				for(Case c: movePossible) {
-					int index=0;
-					if (c==bestMove.get(index)) {
-						this.X=c.getY();
-						this.setY(c.getY());
-					}
-					index++;
-				}
-		}
-		return bestMove;
-	}
+
 	
 	public void consumePE() {
 		int randomNum = ThreadLocalRandom.current().nextInt(1, 4);
@@ -224,41 +165,21 @@ public abstract class Peon extends LivingBeings{
 		return movePossible;
 	}
 
-	void backMaster(Map map, Case cas) {
-		Case source=new Case(this.X,this.Y);
-		Queue<Case> queue= new LinkedList<Case>();
-		queue.add(source);
-		while(!queue.isEmpty()) {
-			Case poped = queue.poll();
-			if(map.getMap()[poped.getX()][poped.getY()].isSafeZone()==true) {
-				return;
-			}
-			else {
-				map.getMap()[poped.getX()][poped.getY()].setSafeZone(false);
-				
-				List<Case> neighbourList = addNeighbours(poped, map);
-				queue.addAll(neighbourList);
-			}
-		}		
+	private Case backMaster(Map map, Case cas) {
+		Case objectif=map.getMap()[this.getMasterX()][this.getMasterY()];
+		Map createdCopyMap=createdCopyMap(map);
+		Case start=createdCopyMap.getMap()[cas.getX()][cas.getY()];
+		createdCopyMap=obstacleCopyMap(createdCopyMap,start,objectif);
+		ArrayList<Case> movePossible=this.checkObstacle(createdCopyMap);
+		if(movePossible.size()!=0) {
+			int randomIndex = (int) (Math.random() * movePossible.size());
+			return movePossible.get(randomIndex);
+		}
+		movePossible=this.checkObstacle(map);
+		int randomIndex = (int) (Math.random() * movePossible.size());
+		return movePossible.get(randomIndex);
 	}
-private static List<Case> addNeighbours(Case poped, Map map) {
-		
-		List<Case> list = new LinkedList<Case>();
-		
-		if((poped.getX() > 0 && poped.getX()-1 < map.getMap().length) && map.getMap()[poped.getX()-1][poped.getY()].isOccupied() != false) {
-			list.add(new Case(poped.getX()-1, poped.getY()));
-		}
-		if((poped.getX()+1 > 0 && poped.getX()+1 < map.getMap().length) && map.getMap()[poped.getX()+1][poped.getY()].isOccupied() != false) {
-			list.add(new Case(poped.getX()+1, poped.getY()));
-		}
-		if((poped.getY()-1 > 0 && poped.getY()-1 < map.getMap().length) && map.getMap()[poped.getX()][poped.getY()-1].isOccupied() != false) {
-			list.add(new Case(poped.getX(), poped.getY()));
-		}
-		if((poped.getY()+1 > 0 && poped.getY()+1 < map.getMap().length) && map.getMap()[poped.getX()][poped.getY()+1].isOccupied() != false) {
-			list.add(new Case(poped.getX(), poped.getY()));
-		}		
-		return list;
-	}
+	
 	
 	
 	void giveAllMessage(Master master, Peon peon) {
@@ -315,6 +236,77 @@ private static List<Case> addNeighbours(Case poped, Map map) {
 			peon2.ownPeonMessage.clear();
 			peon2.ownPeonMessage.addAll(distinctMessagePeon);
 		}
+	}
+	
+
+	private Map createdCopyMap(Map map) {
+		Map miniMap=new Map(map.getX(), map.getY());
+		
+		for(int i=0;i<miniMap.getX();i++) {
+			for(int j=0;j<miniMap.getY();j++) {
+				miniMap.getMap()[i][j]=new Case(i,j);
+					if(map.getMap()[i][j].isBorder()) {
+						miniMap.getMap()[i][j].setBorder(true);
+					}
+					if(map.getMap()[i][j].isObstacle()==true||map.getMap()[i][j].isOccupied()==true){
+						miniMap.getMap()[i][j].setObstacle(true);
+					}
+					else {
+						miniMap.getMap()[i][j].setObstacle(false);
+					}
+				}
+			}
+		
+		miniMap.getMap()[0][0].setObstacle(false);
+		miniMap.getMap()[map.getX()-1][0].setObstacle(false);
+		miniMap.getMap()[0][map.getY()-1].setObstacle(false);
+		miniMap.getMap()[map.getX()-1][map.getY()-1].setObstacle(false);
+		
+		return miniMap;
+	}
+	
+	private Map obstacleCopyMap(Map copymap,Case start,Case objectif) {
+		int objX=objectif.getX();
+		int startX=start.getX();
+		int objY=objectif.getY();
+		int startY=start.getY();
+		for(int i=0;i<copymap.getX();i++) {
+			for(int j=0;j<copymap.getY();j++) {
+				if((objX>startX)&&(objY>startY)) {
+					if((i>=startX)&&(j>=startY)) {
+						//do  nothing
+					}
+					else {
+						copymap.getMap()[i][j].setObstacle(true);
+					}
+				}
+				if((objX>startX)&&(objY<startY)) {
+					if((i>=startX)&&(j<=startY)) {
+						//do  nothing
+					}
+					else {
+						copymap.getMap()[i][j].setObstacle(true);
+					}
+				}
+				if((objX<startX)&&(objY>startY)) {
+					if((i<=startX)&&(j>=startY)) {
+						
+					}
+					else {
+						copymap.getMap()[i][j].setObstacle(true);
+					}
+				}
+				if((objX<startX)&&(objY<startY)) {
+					if((i<=startX)&&(j<=startY)) {
+						//do  nothing
+					}
+					else {
+						copymap.getMap()[i][j].setObstacle(true);
+					}
+				}
+			}
+		}
+		return copymap;
 	}
 	
 

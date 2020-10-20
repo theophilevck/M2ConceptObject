@@ -103,6 +103,40 @@ public class Map {
 	public void setMap(Case[][] map) {
 		this.map = map;
 	}
+	
+	public void aff() {
+		for(int i=0;i<this.getX();i++) {
+			for(int j=0;j<this.getY();j++) {
+				if(this.getMap()[j][i].isObstacle()==true) {
+					System.out.print("|x");}
+				
+			else {
+				System.out.print("| ");
+				}
+			}
+			System.out.println();
+			}
+		System.out.println();
+		System.out.println();
+		
+	}
+	
+	public void affe() {
+		for(int i=0;i<this.getX();i++) {
+			for(int j=0;j<this.getY();j++) {
+				if(this.getMap()[j][i].isObstacle()==true) {
+					System.out.print("|x"+i+" "+j);}
+				
+			else {
+				System.out.print("|"+i+" "+j);
+				}
+			}
+			System.out.println();
+			}
+		System.out.println();
+		System.out.println();
+		
+	}
 
 	
 
