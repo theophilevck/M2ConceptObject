@@ -62,7 +62,7 @@ public class BoardGame extends JComponent implements ActionListener{
     {
 		if(end==false) {
 		if(e.getSource()==timer){
-			this.mainmenu.appendToPane("jour : "+day);
+			System.out.println("jour : "+day);
 			for(Team t:simulation.getTeams()) {
 				System.out.println(t.toString());
 				for(Peon p:t.getPeons()) {
@@ -83,7 +83,7 @@ public class BoardGame extends JComponent implements ActionListener{
 		}
 		if(e.getSource()==startButton){
 			timer.start();
-			this.mainmenu.appendToPane("start");
+			System.out.println("start");
 		}
     }
 

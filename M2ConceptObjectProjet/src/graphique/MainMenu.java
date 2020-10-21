@@ -2,6 +2,8 @@ package graphique;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -14,6 +16,8 @@ import entity.Map;
 import entity.Simulation;
 
 public class MainMenu extends JFrame{
+	
+	 
 	
 	private JTextPane TextPane;
 	MainMenu(){
@@ -28,7 +32,6 @@ public class MainMenu extends JFrame{
 		JScrollPane jp = new JScrollPane( TextPane );  
 		jp.setBounds(860,100,350,200);
 		jp.setBorder(new LineBorder(Color.BLACK));
-		this.appendToPane("test3\ntest3\ntest3\ntest3\ntest3\n");
 		this.add( jp );
 		
 		BoardGame boardGame=new BoardGame(new Simulation(new Map(20,20)),this);
@@ -36,6 +39,8 @@ public class MainMenu extends JFrame{
 		boardGame.setVisible(true);
 		add(boardGame);
 		
+		PrintStream interceptor = new Interceptor(System.out);
+        System.setOut(interceptor);
 		
 	}
 	
@@ -70,14 +75,26 @@ public class MainMenu extends JFrame{
         thread.start();
     }
 	
-	 public void appendToPane( String txt) {
-		 	txt=txt+"\n";
-		 	this.TextPane.setEditable(true);
-	        int len = this.TextPane.getDocument().getLength();
-	        this.TextPane.setCaretPosition(len);
-	        this.TextPane.replaceSelection(txt);
-	        this.TextPane.setEditable(false);
-	        this.TextPane.update(this.TextPane.getGraphics());
+	 
+	 public class Interceptor extends PrintStream
+	    {
+	        public Interceptor(OutputStream out)
+	        {
+	            super(out,true);
+	        }
+	        @Override
+	        public void print(String s)
+	        {
+	            super.print(s);
+	            TextPane.setText(TextPane.getText()+s);
+	        }
+
+	        @Override 
+	        public void println(String s)
+	        {
+	            super.println(s);
+	            TextPane.setText(TextPane.getText()+"\n");
+	        }       
 	    }
 	
 	

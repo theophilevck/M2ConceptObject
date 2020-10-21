@@ -184,7 +184,7 @@ public abstract class Peon extends LivingBeings{
 		master.ownMasterMessage.clear();
 		master.ownMasterMessage.addAll(distinctElements);
 		peon.ownPeonMessage.clear();
-		System.out.println();
+		System.out.println("le peon "+peon+" a donné tous ses message a "+master);
 	}
 	
 	void fusionMessage (Peon peon, Peon peon2) {
