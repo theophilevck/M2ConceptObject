@@ -7,16 +7,14 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 import javax.swing.Timer;
+import javax.swing.border.LineBorder;
 
 import entity.Simulation;
 import entity.Team;
@@ -27,14 +25,20 @@ import entity.LivingBeing.Peon;
 public class BoardGame extends JComponent implements ActionListener{
 	private Image dbImage;
 	private JButton startButton;
-	Timer timer=new Timer(500, this);
+	private JTextPane TextPane;
+	private boolean end;
+	private MainMenu mainmenu;
+	int day=1;
+	int month=0;
+	Timer timer=new Timer(100, this);
 	
 	private Image backgroundImage;
 	
 	private Simulation simulation;
 	
-	BoardGame(Simulation simulation)
+	BoardGame(Simulation simulation, MainMenu mainmenu)
 	{
+		this.mainmenu=mainmenu;
 		dbImage = new ImageIcon(this.getClass().getResource("/img/font.png")).getImage();
 		
 		
@@ -46,34 +50,40 @@ public class BoardGame extends JComponent implements ActionListener{
 		
 		this.startButton =new JButton();
 		startButton.setText("start");
-		startButton.setBounds(900,50,100,25);
+		startButton.setBounds(975,50,100,25);
 		startButton.addActionListener(this);
+		this.add(startButton);
 		
-		add(startButton);
 		
 		setVisible(true);
 	}
 	
 	public  void    actionPerformed(ActionEvent e)
     {
-		
+		if(end==false) {
 		if(e.getSource()==timer){
-			
+			this.mainmenu.appendToPane("jour : "+day);
 			for(Team t:simulation.getTeams()) {
 				System.out.println(t.toString());
 				for(Peon p:t.getPeons()) {
 					if (p.getPE() > 0) {
 						p.move();
 					}
-					
+				}
+				if(t.getMaitre().getKnownMasterMessage().size()==10) {
+					System.out.println(t.toString()+"a gagner");
+					end=true;
 				}
 			}
+			day++;
 			repaint();// this will call at every 1 second
 
 			
 		  }
+		}
 		if(e.getSource()==startButton){
 			timer.start();
+			this.mainmenu.appendToPane("start");
 		}
     }
 
@@ -131,6 +141,7 @@ public class BoardGame extends JComponent implements ActionListener{
 		}
 		g2.dispose();
 	}
+	
 	
 	
 }

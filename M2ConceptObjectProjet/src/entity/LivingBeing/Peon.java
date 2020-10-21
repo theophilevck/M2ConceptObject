@@ -82,9 +82,7 @@ public abstract class Peon extends LivingBeings{
 						System.out.println("fight");
 					}
 				} else {
-					System.out.println(this.getX());
-					System.out.println(this.getY());
-					System.out.println("");
+					System.out.println("move");
 					this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
 					this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);
 					this.setX(movePossible.get(randomIndex).getX());
@@ -93,8 +91,6 @@ public abstract class Peon extends LivingBeings{
 					this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
 				}
 			}
-			System.out.println(this.getX());
-			System.out.println(this.getY());
 			System.out.println("");
 			this.consumePE();
 		}
@@ -183,7 +179,7 @@ public abstract class Peon extends LivingBeings{
 	
 	
 	void giveAllMessage(Master master, Peon peon) {
-		master.ownMasterMessage.addAll(peon.ownPeonMessage);
+		master.knownMasterMessage.addAll(peon.ownPeonMessage);
 		List<Message> distinctElements = master.ownMasterMessage.stream().distinct().collect(Collectors.toList());
 		master.ownMasterMessage.clear();
 		master.ownMasterMessage.addAll(distinctElements);

@@ -42,11 +42,6 @@ public class Simulation {
 
 	public void init() {
 		
-		Scanner input = new Scanner(System.in);
-		
-		System.out.println("enter an integer");
-		dayMax = input.nextInt();
-		
 		day=0;
 		
 		this.setTeams(this.initTeam());
@@ -196,6 +191,7 @@ public void initMessagesMaster() throws IOException {
 			quotes.remove(rand);
 		}
 		team.getMaitre().setOwnMasterMessage(messages);
+		team.getMaitre().setKnownMasterMessage(messages);
 		index++;
 	}
 }
