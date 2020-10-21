@@ -24,10 +24,7 @@ import entity.LivingBeing.Peon;
 
 public class BoardGame extends JComponent implements ActionListener{
 	private Image dbImage;
-	private JButton startButton;
-	private JTextPane TextPane;
 	private boolean end;
-	private MainMenu mainmenu;
 	int day=1;
 	int month=0;
 	Timer timer=new Timer(100, this);
@@ -38,7 +35,6 @@ public class BoardGame extends JComponent implements ActionListener{
 	
 	BoardGame(Simulation simulation, MainMenu mainmenu)
 	{
-		this.mainmenu=mainmenu;
 		dbImage = new ImageIcon(this.getClass().getResource("/img/font.png")).getImage();
 		
 		
@@ -48,11 +44,7 @@ public class BoardGame extends JComponent implements ActionListener{
 		this.simulation.init();
 		
 		
-		this.startButton =new JButton();
-		startButton.setText("start");
-		startButton.setBounds(975,50,100,25);
-		startButton.addActionListener(this);
-		this.add(startButton);
+		
 		
 		
 		setVisible(true);
@@ -81,10 +73,7 @@ public class BoardGame extends JComponent implements ActionListener{
 			
 		  }
 		}
-		if(e.getSource()==startButton){
-			timer.start();
-			System.out.println("start");
-		}
+		
     }
 
 

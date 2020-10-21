@@ -2,10 +2,13 @@ package graphique;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Date;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -15,11 +18,13 @@ import javax.swing.border.LineBorder;
 import entity.Map;
 import entity.Simulation;
 
-public class MainMenu extends JFrame{
+public class MainMenu extends JFrame  implements ActionListener{
 	
 	 
 	
 	private JTextPane TextPane;
+	private BoardGame boardGame;
+	private JButton startButton;
 	MainMenu(){
 		setTitle("star wars");
 		setSize(1250,1000);
@@ -34,7 +39,13 @@ public class MainMenu extends JFrame{
 		jp.setBorder(new LineBorder(Color.BLACK));
 		this.add( jp );
 		
-		BoardGame boardGame=new BoardGame(new Simulation(new Map(20,20)),this);
+		this.startButton =new JButton();
+		startButton.setText("start");
+		startButton.setBounds(975,50,100,25);
+		startButton.addActionListener(this);
+		this.add(startButton);
+		
+		this.boardGame=new BoardGame(new Simulation(new Map(20,20)),this);
 		boardGame.setBounds(10,10,1250,1000);
 		boardGame.setVisible(true);
 		add(boardGame);
@@ -57,6 +68,14 @@ public class MainMenu extends JFrame{
 		
 		
 }
+	
+	public  void    actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()==startButton){
+			this.boardGame.timer.start();
+			System.out.println("start");
+		}
+	}
 	
 	private void printLog() {
         Thread thread = new Thread(new Runnable() {
