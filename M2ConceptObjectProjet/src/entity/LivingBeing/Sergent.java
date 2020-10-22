@@ -7,6 +7,7 @@ public class Sergent extends Master{
 	private Sergent() {
 		super();
 		this.image="/img/darkvador.png";
+		this.name="darth_vader";
 	}
 	
 	public static Sergent getInstance() {

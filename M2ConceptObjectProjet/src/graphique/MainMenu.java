@@ -35,7 +35,7 @@ public class MainMenu extends JFrame  implements ActionListener{
 		this.TextPane = new JTextPane();
 		TextPane.setEditable(false);
 		JScrollPane jp = new JScrollPane( TextPane );  
-		jp.setBounds(860,100,350,200);
+		jp.setBounds(860,100,350,700);
 		jp.setBorder(new LineBorder(Color.BLACK));
 		this.add( jp );
 		

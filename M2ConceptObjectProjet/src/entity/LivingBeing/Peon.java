@@ -37,6 +37,11 @@ public abstract class Peon extends LivingBeings{
 		if (this.getMap().getMap()[this.getX()][this.getY()].isSafeZone()==true) {
 			regeneratePE();
 		}
+		if (this.getPE() <= 0) {
+			this.getMap().getMap()[this.getX()][this.getY()].setObstacle(true);
+			System.out.printf(this.getName()+" n'as plus de points d'endurance");
+			return;
+		}
 		if (this.getPE() < this.getPEMax() /2) {
 			Case movePossible=this.backMaster(this.getMap(),this.getMap().getMap()[this.getX()][this.getY()]);
 			this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
@@ -45,12 +50,11 @@ public abstract class Peon extends LivingBeings{
 			this.setY(movePossible.getY());
 			this.getMap().getMap()[this.getX()][this.getY()].setOccupied(true);
 			this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
+			this.consumePE();
 			
-		} else if (this.getPE() <= 0) {
-			this.getMap().getMap()[this.getX()][this.getY()].setObstacle(true);
-			System.out.printf("PLUS DE PE");
-			
-		} else {
+		}  
+		
+		else {
 			ArrayList<Case> movePossible = this.checkObstacle(this.map);
 			if (movePossible.size() != 0) {
 				int randomIndex = (int) (Math.random() * movePossible.size());
@@ -65,24 +69,19 @@ public abstract class Peon extends LivingBeings{
 								giveAllMessage(
 										(Master) this.map.getMap()[this.getMasterX()][this.getMasterY()].getOccupant(),
 										this);
-								System.out.println("giveAllMessage");
 							} else {
 								// fusion message of both Peon
 								fusionMessage(this, (Peon) movePossible.get(randomIndex).getOccupant());
-								System.out.println("fusionMessage");
 							}
 						} else {
 							// enconter alliance each peon get random message of the other
 							giveAMessageToAnAlly(this, (Peon) movePossible.get(randomIndex).getOccupant());
-							System.out.println("giveAMessageToAnAlly");
 						}
 					} else {
 						// fight for message
 						this.fight(this, (Peon) movePossible.get(randomIndex).getOccupant());
-						System.out.println("fight");
 					}
 				} else {
-					System.out.println("move");
 					this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
 					this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);
 					this.setX(movePossible.get(randomIndex).getX());
@@ -91,7 +90,6 @@ public abstract class Peon extends LivingBeings{
 					this.getMap().getMap()[this.getX()][this.getY()].setOccupant(this);
 				}
 			}
-			System.out.println("");
 			this.consumePE();
 		}
 	}
@@ -180,11 +178,12 @@ public abstract class Peon extends LivingBeings{
 	
 	void giveAllMessage(Master master, Peon peon) {
 		master.knownMasterMessage.addAll(peon.ownPeonMessage);
-		List<Message> distinctElements = master.ownMasterMessage.stream().distinct().collect(Collectors.toList());
-		master.ownMasterMessage.clear();
-		master.ownMasterMessage.addAll(distinctElements);
+		List<Message> distinctElements = master.knownMasterMessage.stream().distinct().collect(Collectors.toList());
+		master.knownMasterMessage.clear();
+		master.knownMasterMessage.addAll(distinctElements);
 		peon.ownPeonMessage.clear();
-		System.out.println("le peon "+peon+" a donné tous ses message a "+master);
+		System.out.println("le peon "+peon.getName()+" a donné tous ses message a "+master.getName());
+		System.out.println(master.getName()+" possede maintenant "+ master.getKnownMasterMessage().size()+" messages ");
 	}
 	
 	void fusionMessage (Peon peon, Peon peon2) {
@@ -194,7 +193,7 @@ public abstract class Peon extends LivingBeings{
 		peon2.ownPeonMessage.removeAll(ownPeonMessage);
 		peon.ownPeonMessage.addAll(distinctMessagePeon);
 		peon2.ownPeonMessage.addAll(distinctMessagePeon);
-		System.out.println();
+		System.out.println("le peon "+peon.getName()+" et le "+peon2.getName() +" on echanger l'enssemble de leur message entre eux");
 	}
 	
 	//peut etre on pourrait voir si il a déja le message et l'enlever ? 
@@ -207,6 +206,10 @@ public abstract class Peon extends LivingBeings{
 		if(peon1.ownPeonMessage.size()!=0) {
 			peon2.ownPeonMessage.add(peon1.ownPeonMessage.get(random_int_peon_1));
 		}
+		
+		System.out.println("les peon "+peon1.getName()+" , "+peon2.getName()+" de l aliance "+peon1.getAlliance()); 
+		System.out.println("le peon "+peon1.getName()+" a recupere "+random_int_peon_2);
+		System.out.println("le peon "+peon2.getName()+" a recupere "+random_int_peon_1);
 	}
 	
 	void fight(Peon peon1, Peon peon2){
@@ -221,6 +224,8 @@ public abstract class Peon extends LivingBeings{
 			List<Message> distinctMessagePeon = peon1.ownPeonMessage.stream().distinct().collect(Collectors.toList());
 			peon1.ownPeonMessage.clear();
 			peon1.ownPeonMessage.addAll(distinctMessagePeon);
+			System.out.println("les peon "+peon1.getName()+" , "+peon2.getName()+" se sont battue ");
+			System.out.println("le peon "+peon1.getName()+" a gagner "+random_int_peon_2 +" messages");
 			
 			
 		}
@@ -231,6 +236,8 @@ public abstract class Peon extends LivingBeings{
 			List<Message> distinctMessagePeon = peon2.ownPeonMessage.stream().distinct().collect(Collectors.toList());
 			peon2.ownPeonMessage.clear();
 			peon2.ownPeonMessage.addAll(distinctMessagePeon);
+			System.out.println("les peon "+peon1.getName()+" , "+peon2.getName()+" se sont battue ");
+			System.out.println("le peon "+peon2.getName()+" a gagner "+random_int_peon_1 +" messages");
 		}
 	}
 	

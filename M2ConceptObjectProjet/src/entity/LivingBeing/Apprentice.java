@@ -7,6 +7,7 @@ public class Apprentice extends Peon{
 	public Apprentice(Map map) {
 		super(map);
 		this.image="/img/anakin.png";
+		this.name=("Apprentice");
 		// TODO Auto-generated constructor stub
 	}
 

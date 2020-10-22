@@ -7,6 +7,7 @@ public class Ewak extends Peon {
 	public Ewak(Map map) {
 		super(map);
 		this.image="/img/ewok.png";
+		this.name=("Ewak");
 		// TODO Auto-generated constructor stub
 	}
 

@@ -16,6 +16,7 @@ import javax.swing.JTextPane;
 import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
+import entity.Message;
 import entity.Simulation;
 import entity.Team;
 import entity.LivingBeing.Peon;
@@ -45,8 +46,6 @@ public class BoardGame extends JComponent implements ActionListener{
 		
 		
 		
-		
-		
 		setVisible(true);
 	}
 	
@@ -56,14 +55,16 @@ public class BoardGame extends JComponent implements ActionListener{
 		if(e.getSource()==timer){
 			System.out.println("jour : "+day);
 			for(Team t:simulation.getTeams()) {
-				System.out.println(t.toString());
 				for(Peon p:t.getPeons()) {
 					if (p.getPE() > 0) {
 						p.move();
 					}
 				}
 				if(t.getMaitre().getKnownMasterMessage().size()==10) {
-					System.out.println(t.toString()+"a gagner");
+					System.out.println(t.getMaitre().getName()+"a gagner");
+					for(Message s:t.getMaitre().getKnownMasterMessage()) {
+						System.out.println(s.getMessage());
+					}
 					end=true;
 				}
 			}

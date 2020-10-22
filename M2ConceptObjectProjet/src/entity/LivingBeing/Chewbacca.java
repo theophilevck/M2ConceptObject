@@ -7,6 +7,7 @@ public class Chewbacca extends Master{
 	private Chewbacca() {
 		super();
 		this.image="/img/chewbi.png";
+		this.name="chewbacca";
 	}
 	
 	public static Chewbacca getInstance() {

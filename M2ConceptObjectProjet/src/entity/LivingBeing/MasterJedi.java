@@ -7,6 +7,7 @@ public class MasterJedi extends Master{
 	private MasterJedi() {
 		super();
 		this.image="/img/yoda.png";
+		this.name="yoda";
 	}
 	
 	public static MasterJedi getInstance() {

@@ -14,6 +14,8 @@ public abstract class LivingBeings {
 	
 	protected String image;
 	
+	protected String name;
+	
 	public int getX() {
 		return X;
 	}
@@ -53,6 +55,14 @@ public abstract class LivingBeings {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	abstract void move();

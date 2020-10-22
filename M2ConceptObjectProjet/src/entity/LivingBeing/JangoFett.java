@@ -7,6 +7,7 @@ public class JangoFett extends Master{
 	private JangoFett() {
 		super();
 		this.image="/img/jangofett.png";
+		this.name="jangoFett";
 	}
 	
 	public static JangoFett getInstance() {
