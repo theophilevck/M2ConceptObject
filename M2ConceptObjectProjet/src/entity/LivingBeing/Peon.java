@@ -1,8 +1,6 @@
 package entity.LivingBeing;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -65,18 +63,16 @@ public abstract class Peon extends LivingBeings{
 								.getSafeZoneNumber() == this.getMap().getMap()[this.getX()][this.getY()].getOccupant()
 										.getSafeZoneNumber()) {
 							if (movePossible.get(randomIndex).getOccupant() instanceof Master) {
-								giveAllMessage(
-										(Master) this.map.getMap()[this.getMasterX()][this.getMasterY()].getOccupant(),
-										this);
+								speakToMaster((Master) this.map.getMap()[this.getMasterX()][this.getMasterY()].getOccupant());
 							} else {
-								fusionMessage(this, (Peon) movePossible.get(randomIndex).getOccupant());
+								speakToTeammate((Peon) movePossible.get(randomIndex).getOccupant());
 							}
 						} else {
-							giveAMessageToAnAlly(this, (Peon) movePossible.get(randomIndex).getOccupant());
+							speakToAlly( (Peon) movePossible.get(randomIndex).getOccupant());
 						}
 					} else {
 						// fight for message
-						this.fight(this, (Peon) movePossible.get(randomIndex).getOccupant());
+						this.fight( (Peon) movePossible.get(randomIndex).getOccupant());
 					}
 				} else {
 					this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
@@ -116,7 +112,12 @@ public abstract class Peon extends LivingBeings{
 							//do nothing
 						}
 						else {
-							movePossible.add(map.getMap()[i][j]);
+							if(	(	i==this.getX())	&&	(	j==this.getY()	)	) {
+								//do nothing
+							}
+							else {
+								movePossible.add(map.getMap()[i][j]);
+							}
 						}
 				}
 			}
@@ -149,7 +150,6 @@ public abstract class Peon extends LivingBeings{
 					else {
 						movePossible.add(map.getMap()[a][b]);
 					}
-					
 				}
 			}
 		}
@@ -171,87 +171,17 @@ public abstract class Peon extends LivingBeings{
 		return movePossible.get(randomIndex);
 	}
 	
-	
-	
-	void giveAllMessage(Master master, Peon peon) {
-		master.knownMasterMessage.addAll(peon.ownPeonMessage);
-		List<Message> distinctElements = master.knownMasterMessage.stream().distinct().collect(Collectors.toList());
-		master.knownMasterMessage.clear();
-		master.knownMasterMessage.addAll(distinctElements);
-		peon.ownPeonMessage.clear();
-		System.out.println("le peon "+peon.getName()+" a donné tous ses messages a "+master.getName());
-		System.out.println(master.getName()+" possede maintenant "+ master.getKnownMasterMessage().size()+" messages ");
-	}
-	
-	void fusionMessage (Peon peon, Peon peon2) {
-		peon.ownPeonMessage.addAll(peon2.ownPeonMessage);
-		List<Message> distinctMessagePeon = peon.ownPeonMessage.stream().distinct().collect(Collectors.toList());
-		peon.ownPeonMessage.removeAll(ownPeonMessage);
-		peon2.ownPeonMessage.removeAll(ownPeonMessage);
-		peon.ownPeonMessage.addAll(distinctMessagePeon);
-		peon2.ownPeonMessage.addAll(distinctMessagePeon);
-		System.out.println("le peon "+peon.getName()+" et le "+peon2.getName() +" ont echangé l'ensemble de leur(s) message(s) entre eux");
-	}
-	
-
-	void giveAMessageToAnAlly(Peon peon1, Peon peon2) {
-		System.out.println("les peon "+peon1.getName()+" , "+peon2.getName()+" de l aliance "+peon1.getAlliance()); 
-		int nb_mess_echanger_peon1 = (int)(Math.random() * (peon1.ownPeonMessage.size()));
-		int nb_mess_echanger_peon2 = (int)(Math.random() * (peon2.ownPeonMessage.size()));
-		if(peon2.ownPeonMessage.size()!=0) {
-			for (int i = 0; i <= nb_mess_echanger_peon1; i++) {
-				int random_int_peon_2 = (int)(Math.random() * (peon2.ownPeonMessage.size()));
-				System.out.println("le peon "+peon1.getName()+" a recuperé "+random_int_peon_2);
-				peon1.ownPeonMessage.add(peon2.ownPeonMessage.get(random_int_peon_2));
-			}
-			List<Message> distinctMessagePeon = peon1.ownPeonMessage.stream().distinct().collect(Collectors.toList());
-			peon1.ownPeonMessage.clear();
-			peon1.ownPeonMessage.addAll(distinctMessagePeon);
-		}
-		if(peon1.ownPeonMessage.size()!=0) {
-			for (int i=0; i <= nb_mess_echanger_peon2; i++) {
-				int random_int_peon_1 = (int)(Math.random() * (peon1.ownPeonMessage.size()));
-				System.out.println("le peon "+peon2.getName()+" a recupere "+random_int_peon_1);
-				peon2.ownPeonMessage.add(peon1.ownPeonMessage.get(random_int_peon_1));
-			}
-			List<Message> distinctMessagePeon = peon2.ownPeonMessage.stream().distinct().collect(Collectors.toList());
-			peon2.ownPeonMessage.clear();
-			peon2.ownPeonMessage.addAll(distinctMessagePeon);
-		}
-	}
-	
-	void fight(Peon peon1, Peon peon2){
+	void fight( Peon peonEnnemie){
+		System.out.println("les peon "+this.getName()+" , "+peonEnnemie.getName()+" se sont battus ");
 		int random_att_int_peon_1 = (int)(Math.random() * (10 + 1));
 		int random_att_int_peon_2 = (int)(Math.random() * (10 + 1));
-		int nb_mess_echanger_peon1 = (int)(Math.random() * (peon1.ownPeonMessage.size()));
-		int nb_mess_echanger_peon2 = (int)(Math.random() * (peon2.ownPeonMessage.size()));
-		System.out.println("les peon "+peon1.getName()+" , "+peon2.getName()+" se sont battus ");
 		if (random_att_int_peon_1 > random_att_int_peon_2) {
-			if(peon2.ownPeonMessage.size()!=0) {
-				for (int i=0; i<=nb_mess_echanger_peon1;i++ ) {
-					int random_int_peon_2 = (int)(Math.random() * (peon2.ownPeonMessage.size()));
-					System.out.println("le peon "+peon1.getName()+" a recuperé "+random_int_peon_2);
-					peon1.ownPeonMessage.add(peon2.ownPeonMessage.get(random_int_peon_2));
-					System.out.println("le peon "+peon1.getName()+" a gagné "+random_int_peon_2 +" messages");
-				}
-			}
-			List<Message> distinctMessagePeon = peon1.ownPeonMessage.stream().distinct().collect(Collectors.toList());
-			peon1.ownPeonMessage.clear();
-			peon1.ownPeonMessage.addAll(distinctMessagePeon);
+			//this gagne
+			peonEnnemie.giveMessageTowinner(this);
 		}
 		else {
-			if(peon1.ownPeonMessage.size()!=0) {
-				for (int i = 0; i<=nb_mess_echanger_peon2;i++ ) {
-					int random_int_peon_1 = (int)(Math.random() * (peon1.ownPeonMessage.size()));
-					peon2.ownPeonMessage.add(peon1.ownPeonMessage.get(random_int_peon_1));
-					System.out.println("le peon "+peon2.getName()+" a gagné "+random_int_peon_1 +" messages");
-				}
-				
-			}
-			List<Message> distinctMessagePeon = peon2.ownPeonMessage.stream().distinct().collect(Collectors.toList());
-			peon2.ownPeonMessage.clear();
-			peon2.ownPeonMessage.addAll(distinctMessagePeon);
-
+			//peonEnnemie win
+			this.giveMessageTowinner(peonEnnemie);
 		}
 	}
 	
@@ -369,6 +299,115 @@ public abstract class Peon extends LivingBeings{
 	
 	public void setMessage(Message msg) {
 		this.ownPeonMessage.add(msg);
+	}
+	
+	public void speakToMaster(Master master) {
+			ArrayList<Message>PeonMessage=this.getOwnPeonMessage();
+			System.out.println("le peon "+this.getName()+" a donné tous ses messages a "+master.getName());
+			master.ListenToPeon(this,PeonMessage);
+	}
+	
+	public void listenToMaster(ArrayList<Message> newpeonMessages) {
+		this.setOwnPeonMessage(newpeonMessages);
+	}
+
+	public void speakToTeammate(Peon teammate) {
+		ArrayList<Message>PeonMessage=this.getOwnPeonMessage();
+		this.getOwnPeonMessage().clear();
+		teammate.ListenAndRepplyToTeammate(this,PeonMessage);
+		System.out.println("le peon "+this.getName()+" et le "+teammate.getName() +" ont echangé l'ensemble de leur(s) message(s) entre eux");
+	}
+	
+	public void ListenAndRepplyToTeammate(Peon teammate,ArrayList<Message>PeonMessage) {
+		this.ownPeonMessage.addAll(PeonMessage);
+		List<Message> distinctMessagePeon = this.ownPeonMessage.stream().distinct().collect(Collectors.toList());
+		this.ownPeonMessage.clear();
+		this.ownPeonMessage.addAll(distinctMessagePeon);
+		teammate.ListenBackToTeammate(distinctMessagePeon);
+	}
+	
+	public void ListenBackToTeammate(List<Message>PeonMessage) {
+		this.ownPeonMessage.addAll(PeonMessage);
+	}
+	
+	public void speakToAlly(Peon peonally) {
+		ArrayList<Message>PeonMessage=new ArrayList<Message>();
+		System.out.println("les peon "+this.getName()+" , "+peonally.getName()+" de l aliance "+this.getAlliance()+" se rencontrent"); 
+		
+		if(this.ownPeonMessage.size()!=0) {
+			int nb_mess_echanger_peon = (int)(Math.random() * (this.ownPeonMessage.size()));
+			System.out.println("le peon "+peonally.getName()+" a recupere "+nb_mess_echanger_peon+" messages");
+			for (int i=0; i <= nb_mess_echanger_peon; i++) {
+				int random_int_peon = (int)(Math.random() * (this.ownPeonMessage.size()));
+				
+				PeonMessage.add(this.ownPeonMessage.get(random_int_peon));
+				}
+			}
+		else {
+			System.out.println("le peon "+peonally.getName()+" n a pas recupere de messages");
+		}
+		peonally.ListenAndRepplyToAlly(this,PeonMessage);
+	}
+	
+	public void ListenAndRepplyToAlly(Peon peonally,ArrayList<Message>GivenPeonMessage) {
+		ArrayList<Message>PeonMessage=new ArrayList<Message>();
+		int nb_mess_echanger_peon = (int)(Math.random() * (this.ownPeonMessage.size()));
+		System.out.println("le peon "+peonally.getName()+" a recuperé "+nb_mess_echanger_peon+" messages");
+		if(this.ownPeonMessage.size()!=0) {
+			for (int i = 0; i <= nb_mess_echanger_peon; i++) {
+				int random_int_peon_ = (int)(Math.random() * (this.ownPeonMessage.size()));
+				PeonMessage.add(this.ownPeonMessage.get(random_int_peon_));
+			}
+		}
+		else {
+			System.out.println("le peon "+peonally.getName()+" n a pas recupere de messages");
+		}
+		this.ownPeonMessage.addAll(GivenPeonMessage);
+		List<Message> distinctMessagePeon = this.ownPeonMessage.stream().distinct().collect(Collectors.toList());
+		this.ownPeonMessage.clear();
+		this.ownPeonMessage.addAll(distinctMessagePeon);
+		peonally.ListenBackToAlly(PeonMessage);
+	}
+	
+	public void ListenBackToAlly(List<Message>PeonMessage) {
+		this.ownPeonMessage.addAll(PeonMessage);
+		List<Message> distinctMessagePeon = this.ownPeonMessage.stream().distinct().collect(Collectors.toList());
+		this.ownPeonMessage.clear();
+		this.ownPeonMessage.addAll(distinctMessagePeon);
+	}
+	
+	public void giveMessageTowinner(Peon winner) {
+		ArrayList<Message>PeonMessage=new ArrayList<Message>();
+		if(this.ownPeonMessage.size()!=0) {
+			int nb_mess_echanger_peon = (int)(Math.random() * (this.ownPeonMessage.size()));
+			System.out.println("le peon "+this.getName()+" a perdu et donne "+nb_mess_echanger_peon+" messages qu il perd");
+			for (int i=0; i<=nb_mess_echanger_peon;i++ ) {
+				int random_int_peon= (int)(Math.random() * (this.ownPeonMessage.size()));
+				PeonMessage.add(this.ownPeonMessage.get(random_int_peon));
+				this.getOwnPeonMessage().remove(random_int_peon);
+			}
+		}
+		else {
+			System.out.println("le peon "+this.getName()+" a perdu mais n a pas de message");
+		}
+		winner.listenToLooser(PeonMessage);
+	}
+	
+	public void listenToLooser(ArrayList<Message>PeonMessage) {
+		this.ownPeonMessage.addAll(PeonMessage);
+		List<Message> distinctMessagePeon = this.ownPeonMessage.stream().distinct().collect(Collectors.toList());
+		this.ownPeonMessage.clear();
+		this.ownPeonMessage.addAll(distinctMessagePeon);
+		
+	}
+
+	public ArrayList<Message> getOwnPeonMessage() {
+		return ownPeonMessage;
+	}
+
+
+	public void setOwnPeonMessage(ArrayList<Message> ownPeonMessage) {
+		this.ownPeonMessage = ownPeonMessage;
 	}
 	
 }

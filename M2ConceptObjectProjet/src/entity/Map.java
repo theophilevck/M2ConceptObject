@@ -77,7 +77,7 @@ public class Map {
 	void createObstacle( Case cas) {
 		
 		double bool=Math.random();
-		if(bool<0.2) { cas.setObstacle(true); }
+		if(bool<0.15) { cas.setObstacle(true); }
 	}
 
 	public int getX() {

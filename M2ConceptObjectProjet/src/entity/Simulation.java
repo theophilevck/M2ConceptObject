@@ -199,7 +199,7 @@ public void initMessagesMaster() throws IOException {
 public void initMessagesPeon() {
 	for (Team team: this.getTeams()) {
 		for (Peon peon: team.getPeons()) {
-			int rand= ThreadLocalRandom.current().nextInt(1, 5);
+			int rand= ThreadLocalRandom.current().nextInt(1, team.getMaitre().getOwnMasterMessage().size());
 			ArrayList<Message> messagesForPeons=new ArrayList<Message>();
 			messagesForPeons.addAll(team.getMaitre().getOwnMasterMessage());
 			for (int i=0;i<rand;i++) {
@@ -207,6 +207,7 @@ public void initMessagesPeon() {
 				peon.setMessage(messagesForPeons.get(randNumMessages));
 				messagesForPeons.remove(randNumMessages);
 			}
+			System.out.println();
 		}
 	}
 }
