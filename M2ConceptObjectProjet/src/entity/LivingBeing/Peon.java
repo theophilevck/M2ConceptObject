@@ -19,7 +19,7 @@ public abstract class Peon extends LivingBeings{
 	
 	protected int MasterY;
 	
-	protected Map map;
+	
 	
 	protected ArrayList<Message> ownPeonMessage;
 	
@@ -98,12 +98,12 @@ public abstract class Peon extends LivingBeings{
 		this.setPE(200);
 	}
 	
+	@Override
 	public ArrayList<Case> checkObstacle(Map map) {
 		ArrayList <Case> movePossible=new ArrayList<Case>();
 		
 			if(map.getMap()[this.getX()][this.getY()].isBorder()) {
 				movePossible.addAll(checkObstacleBorder(map, map.getMap()[this.getX()][this.getY()]));
-				
 			}
 			else {
 				for(int i=this.getX()-1;i<this.getX()+2;i++) {
@@ -125,7 +125,7 @@ public abstract class Peon extends LivingBeings{
 			return movePossible;
 	}
 	
-	
+	@Override
 	public ArrayList<Case> checkObstacleBorder(Map map, Case cas) {
 		ArrayList <Case> movePossible=new ArrayList<Case>();
 		int i=cas.getX()-1;
@@ -408,6 +408,11 @@ public abstract class Peon extends LivingBeings{
 
 	public void setOwnPeonMessage(ArrayList<Message> ownPeonMessage) {
 		this.ownPeonMessage = ownPeonMessage;
+	}
+	
+	public void ReceiveCommunicationMaster(Master master) {
+		this.setMasterX(master.getX());
+		this.setMasterY(master.getY());
 	}
 	
 }

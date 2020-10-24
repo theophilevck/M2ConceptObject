@@ -1,6 +1,10 @@
 package entity.LivingBeing;
 
+import java.util.ArrayList;
+
 import entity.Alliance;
+import entity.Case;
+import entity.Map;
 
 public abstract class LivingBeings {
 	
@@ -15,6 +19,8 @@ public abstract class LivingBeings {
 	protected String image;
 	
 	protected String name;
+	
+	protected Map map;
 	
 	public int getX() {
 		return X;
@@ -64,9 +70,20 @@ public abstract class LivingBeings {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	abstract void move();
 	
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
+	public abstract void move();
+	
+	abstract ArrayList<Case> checkObstacleBorder(Map map, Case cas);
+	
+	abstract ArrayList<Case> checkObstacle(Map map);
 	
 	
 	

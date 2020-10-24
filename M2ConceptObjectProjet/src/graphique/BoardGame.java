@@ -19,6 +19,7 @@ import javax.swing.border.LineBorder;
 import entity.Message;
 import entity.Simulation;
 import entity.Team;
+import entity.LivingBeing.LivingBeings;
 import entity.LivingBeing.Peon;
 
 
@@ -55,10 +56,8 @@ public class BoardGame extends JComponent implements ActionListener{
 		if(e.getSource()==timer){
 			System.out.println("jour : "+day);
 			for(Team t:simulation.getTeams()) {
-				for(Peon p:t.getPeons()) {
-					if (p.getPE() > 0) {
+				for(LivingBeings p:t.getAll()) {
 						p.move();
-					}
 				}
 				if(t.getMaitre().getKnownMasterMessage().size()==10) {
 					System.out.println(t.getMaitre().getName()+"a gagner");

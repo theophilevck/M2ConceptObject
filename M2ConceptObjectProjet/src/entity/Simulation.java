@@ -1,11 +1,9 @@
 package entity;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 import entity.LivingBeing.Apprentice;
@@ -13,7 +11,6 @@ import entity.LivingBeing.BountyHunter;
 import entity.LivingBeing.Chewbacca;
 import entity.LivingBeing.Ewak;
 import entity.LivingBeing.JangoFett;
-import entity.LivingBeing.Master;
 import entity.LivingBeing.MasterJedi;
 import entity.LivingBeing.Peon;
 import entity.LivingBeing.Sergent;
@@ -88,38 +85,45 @@ public void setMaster() {
 	for(Team e:this.getTeams()) {
 		switch(e.getMaitre().getSafeZoneNumber()) {
 		  case 0:
+			e.getMaitre().setMap(this.getMap());
+			e.getMaitre().setTeam(e);
 		    e.getMaitre().setX(0);
 		    e.getMaitre().setY(0);
 		    this.getMap().getMap()[0][0].setOccupant(e.getMaitre());
 		    this.getMap().getMap()[0][0].setOccupied(true);
 		    e.getMaitre().setSafeZoneNumber(0);
 		    e.getMaitre().setAlliance(e.getAlliance());
-		    
 		    break;
 		  case 1:
+			  e.getMaitre().setMap(this.getMap());
+			  e.getMaitre().setTeam(e);
 			  e.getMaitre().setX(map.X-1);
 			  e.getMaitre().setY(0);
 			  this.getMap().getMap()[map.X-1][0].setOccupant(e.getMaitre());
 			  this.getMap().getMap()[map.X-1][0].setOccupied(true);
 			  e.getMaitre().setSafeZoneNumber(1);
 			  e.getMaitre().setAlliance(e.getAlliance());
-		    break;
+			  break;
 		  case 2:
+			  e.getMaitre().setMap(this.getMap());
+			  e.getMaitre().setTeam(e);
 			  e.getMaitre().setX(0);
-			   e.getMaitre().setY(map.Y-1);
-			   this.getMap().getMap()[0][map.Y-1].setOccupant(e.getMaitre());
-			   this.getMap().getMap()[0][map.Y-1].setOccupied(true);
-			   e.getMaitre().setSafeZoneNumber(2);
-			   e.getMaitre().setAlliance(e.getAlliance());
-			    break;
+			  e.getMaitre().setY(map.Y-1);
+			  this.getMap().getMap()[0][map.Y-1].setOccupant(e.getMaitre());
+			  this.getMap().getMap()[0][map.Y-1].setOccupied(true);
+			  e.getMaitre().setSafeZoneNumber(2);
+			  e.getMaitre().setAlliance(e.getAlliance());
+			  break;
 		  case 3:
+			  e.getMaitre().setMap(this.getMap());
+			  e.getMaitre().setTeam(e);
 			  e.getMaitre().setX(map.X-1);
 			  e.getMaitre().setY(map.Y-1);
 			  this.getMap().getMap()[map.X-1][map.Y-1].setOccupant(e.getMaitre());
 			  this.getMap().getMap()[map.X-1][map.Y-1].setOccupied(true);
 			  e.getMaitre().setSafeZoneNumber(3);
 			  e.getMaitre().setAlliance(e.getAlliance());
-			    break;
+			  break;
 		}
 	}
 }
