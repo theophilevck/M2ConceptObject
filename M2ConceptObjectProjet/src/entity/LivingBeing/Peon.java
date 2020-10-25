@@ -36,8 +36,10 @@ public abstract class Peon extends LivingBeings{
 			regeneratePE();
 		}
 		if (this.getPE() <= 0) {
-			this.getMap().getMap()[this.getX()][this.getY()].setObstacle(true);
-			System.out.printf(this.getName()+" n'a plus de points d'endurance");
+			if(this.getMap().getMap()[this.getX()][this.getY()].isObstacle()==false) {
+				this.getMap().getMap()[this.getX()][this.getY()].setObstacle(true);
+				System.out.println(this.getName()+" n'a plus de points d'endurance");
+			}
 			return;
 		}
 		if (this.getPE() < this.getPEMax() /2) {
@@ -337,7 +339,7 @@ public abstract class Peon extends LivingBeings{
 		if(this.ownPeonMessage.size()!=0) {
 			int nb_mess_echanger_peon = (int)(Math.random() * (this.ownPeonMessage.size()));
 			System.out.println("le peon "+peonally.getName()+" a recupere "+nb_mess_echanger_peon+" messages");
-			for (int i=0; i <= nb_mess_echanger_peon; i++) {
+			for (int i=0; i < nb_mess_echanger_peon; i++) {
 				int random_int_peon = (int)(Math.random() * (this.ownPeonMessage.size()));
 				
 				PeonMessage.add(this.ownPeonMessage.get(random_int_peon));
@@ -354,7 +356,7 @@ public abstract class Peon extends LivingBeings{
 		int nb_mess_echanger_peon = (int)(Math.random() * (this.ownPeonMessage.size()));
 		System.out.println("le peon "+peonally.getName()+" a recuperé "+nb_mess_echanger_peon+" messages");
 		if(this.ownPeonMessage.size()!=0) {
-			for (int i = 0; i <= nb_mess_echanger_peon; i++) {
+			for (int i = 0; i < nb_mess_echanger_peon; i++) {
 				int random_int_peon_ = (int)(Math.random() * (this.ownPeonMessage.size()));
 				PeonMessage.add(this.ownPeonMessage.get(random_int_peon_));
 			}
@@ -381,7 +383,7 @@ public abstract class Peon extends LivingBeings{
 		if(this.ownPeonMessage.size()!=0) {
 			int nb_mess_echanger_peon = (int)(Math.random() * (this.ownPeonMessage.size()));
 			System.out.println("le peon "+this.getName()+" a perdu et donne "+nb_mess_echanger_peon+" messages qu il perd");
-			for (int i=0; i<=nb_mess_echanger_peon;i++ ) {
+			for (int i=0; i<nb_mess_echanger_peon;i++ ) {
 				int random_int_peon= (int)(Math.random() * (this.ownPeonMessage.size()));
 				PeonMessage.add(this.ownPeonMessage.get(random_int_peon));
 				this.getOwnPeonMessage().remove(random_int_peon);

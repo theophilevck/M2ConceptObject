@@ -34,18 +34,15 @@ public class BoardGame extends JComponent implements ActionListener{
 	private Image backgroundImage;
 	
 	private Simulation simulation;
+	private MainMenu mainmenu;
 	
 	BoardGame(Simulation simulation, MainMenu mainmenu)
 	{
 		dbImage = new ImageIcon(this.getClass().getResource("/img/font.png")).getImage();
-		
-		
-		
+		this.mainmenu=mainmenu;
 		this.simulation=simulation;
 		simulation.setBoardGame(this);
 		this.simulation.init();
-		
-		
 		
 		setVisible(true);
 	}
@@ -59,7 +56,7 @@ public class BoardGame extends JComponent implements ActionListener{
 				for(LivingBeings p:t.getAll()) {
 						p.move();
 				}
-				if(t.getMaitre().getKnownMasterMessage().size()==10) {
+				if(t.getMaitre().getKnownMasterMessage().size()==6) {
 					System.out.println(t.getMaitre().getName()+"a gagner");
 					for(Message s:t.getMaitre().getKnownMasterMessage()) {
 						System.out.println(s.getMessage());
@@ -67,13 +64,20 @@ public class BoardGame extends JComponent implements ActionListener{
 					end=true;
 				}
 			}
-			day++;
 			repaint();// this will call at every 1 second
-
-			
+			if (this.day % 100==0) {
+				this.mainmenu.getResumeButton().setVisible(true);
+				this.timer.stop();
+			}
+			day++;
 		  }
 		}
-		
+		else {
+			if(e.getSource()==timer){
+				this.mainmenu.getStartButton().setVisible(false);
+				this.mainmenu.getNewgame().setVisible(true);
+			}
+		}
     }
 
 
@@ -84,8 +88,6 @@ public class BoardGame extends JComponent implements ActionListener{
 		g.drawImage(dbImage, 40, 40, 800, 800, this);
 	      super.paintComponent(g);
 		Graphics2D g2= (Graphics2D) g;
-		
-		
 		
 		
 		int CASEDIM=40;
@@ -129,6 +131,70 @@ public class BoardGame extends JComponent implements ActionListener{
 			}
 		}
 		g2.dispose();
+	}
+
+	public Image getDbImage() {
+		return dbImage;
+	}
+
+	public void setDbImage(Image dbImage) {
+		this.dbImage = dbImage;
+	}
+
+	public boolean isEnd() {
+		return end;
+	}
+
+	public void setEnd(boolean end) {
+		this.end = end;
+	}
+
+	public int getDay() {
+		return day;
+	}
+
+	public void setDay(int day) {
+		this.day = day;
+	}
+
+	public int getMonth() {
+		return month;
+	}
+
+	public void setMonth(int month) {
+		this.month = month;
+	}
+
+	public Timer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+
+	public Image getBackgroundImage() {
+		return backgroundImage;
+	}
+
+	public void setBackgroundImage(Image backgroundImage) {
+		this.backgroundImage = backgroundImage;
+	}
+
+	public Simulation getSimulation() {
+		return simulation;
+	}
+
+	public void setSimulation(Simulation simulation) {
+		this.simulation = simulation;
+	}
+
+	public MainMenu getMainmenu() {
+		return mainmenu;
+	}
+
+	public void setMainmenu(MainMenu mainmenu) {
+		this.mainmenu = mainmenu;
 	}
 	
 	

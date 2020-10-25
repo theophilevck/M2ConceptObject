@@ -151,7 +151,7 @@ public abstract class Master extends LivingBeings{
 		peon.speakToMaster(this);
 	}
 	public void CommunicateNewPosition() {
-		System.out.println(this.getName()+" a communiquer son nouvelle emplacement a tous ses peon");
+		//System.out.println(this.getName()+" a communiquer son nouvelle emplacement a tous ses peon");
 		for(Peon p:this.getTeam().getPeons()) {
 			p.ReceiveCommunicationMaster(this);
 		}

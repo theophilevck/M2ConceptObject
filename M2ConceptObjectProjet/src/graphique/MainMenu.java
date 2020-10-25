@@ -25,6 +25,8 @@ public class MainMenu extends JFrame  implements ActionListener{
 	private JTextPane TextPane;
 	private BoardGame boardGame;
 	private JButton startButton;
+	private JButton resumeButton;
+	private JButton newgame;
 	MainMenu(){
 		setTitle("star wars");
 		setSize(1250,1000);
@@ -44,6 +46,20 @@ public class MainMenu extends JFrame  implements ActionListener{
 		startButton.setBounds(975,50,100,25);
 		startButton.addActionListener(this);
 		this.add(startButton);
+		
+		this.resumeButton =new JButton();
+		resumeButton.setText("resume");
+		resumeButton.setBounds(975,825,100,25);
+		resumeButton.addActionListener(this);
+		resumeButton.setVisible(false);
+		this.add(resumeButton);
+		
+		this.newgame =new JButton();
+		newgame.setText("newgame");
+		newgame.setBounds(975,50,100,25);
+		newgame.addActionListener(this);
+		newgame.setVisible(false);
+		this.add(newgame);
 		
 		this.boardGame=new BoardGame(new Simulation(new Map(20,20)),this);
 		boardGame.setBounds(10,10,1250,1000);
@@ -75,6 +91,24 @@ public class MainMenu extends JFrame  implements ActionListener{
 			this.boardGame.timer.start();
 			System.out.println("start");
 		}
+		
+		if(e.getSource()==resumeButton){
+			this.boardGame.timer.start();
+			System.out.println("resume");
+			resumeButton.setVisible(false);
+		}
+		
+		if(e.getSource()==newgame){
+			this.boardGame.getTimer().stop();
+			this.boardGame.setSimulation(new Simulation(new Map(20,20)));
+			this.boardGame.getSimulation().init();
+			this.boardGame.setDay(1);
+			this.boardGame.setEnd(false);
+			this.boardGame.repaint();
+			this.getNewgame().setVisible(false);
+			this.getStartButton().setVisible(true);
+		}
+		
 	}
 	
 	private void printLog() {
@@ -115,6 +149,47 @@ public class MainMenu extends JFrame  implements ActionListener{
 	            TextPane.setText(TextPane.getText()+"\n");
 	        }       
 	    }
+
+
+	public JTextPane getTextPane() {
+		return TextPane;
+	}
+
+	public void setTextPane(JTextPane textPane) {
+		TextPane = textPane;
+	}
+
+	public BoardGame getBoardGame() {
+		return boardGame;
+	}
+
+	public void setBoardGame(BoardGame boardGame) {
+		this.boardGame = boardGame;
+	}
+
+	public JButton getStartButton() {
+		return startButton;
+	}
+
+	public void setStartButton(JButton startButton) {
+		this.startButton = startButton;
+	}
+
+	public JButton getResumeButton() {
+		return resumeButton;
+	}
+
+	public void setResumeButton(JButton resumeButton) {
+		this.resumeButton = resumeButton;
+	}
+
+	public JButton getNewgame() {
+		return newgame;
+	}
+
+	public void setNewgame(JButton newgame) {
+		this.newgame = newgame;
+	}
 	
 	
 }
