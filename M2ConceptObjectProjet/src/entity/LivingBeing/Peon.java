@@ -174,15 +174,21 @@ public abstract class Peon extends LivingBeings{
 	}
 	
 	void fight( Peon peonEnnemie){
-		System.out.println("les peon "+this.getName()+" , "+peonEnnemie.getName()+" se sont battus ");
-		int random_att_int_peon_1 = (int)(Math.random() * (10 + 1));
-		int random_att_int_peon_2 = (int)(Math.random() * (10 + 1));
-		if (random_att_int_peon_1 > random_att_int_peon_2) {
+		//Pierre = 1 Papier = 2 ciseaux = 3
+		System.out.println("les peons "+this.getName()+" , "+peonEnnemie.getName()+" se sont battus ");
+		int random_att_int_peon_1 = (int)(Math.random() * (3 + 1));
+		int random_att_int_peon_2 = (int)(Math.random() * (3 + 1));
+		if (random_att_int_peon_1==1 && random_att_int_peon_2==3 || random_att_int_peon_1==2 && random_att_int_peon_2==1 || random_att_int_peon_1==3 && random_att_int_peon_2==2) {
 			//this gagne
+			System.out.println("Le peon "+this.getName() +" a gagné");
 			peonEnnemie.giveMessageTowinner(this);
+		}
+		else if (random_att_int_peon_1==random_att_int_peon_2) {
+			System.out.println("Les peons ont pris la fuite et ont conservé leur(s) messages.");
 		}
 		else {
 			//peonEnnemie win
+			System.out.println("Le peon "+peonEnnemie.getName()+" a gagné");
 			this.giveMessageTowinner(peonEnnemie);
 		}
 	}
