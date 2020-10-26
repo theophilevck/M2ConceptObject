@@ -56,8 +56,8 @@ public class BoardGame extends JComponent implements ActionListener{
 				for(LivingBeings p:t.getAll()) {
 						p.move();
 				}
-				if(t.getMaitre().getKnownMasterMessage().size()==6) {
-					System.out.println(t.getMaitre().getName()+"a gagner");
+				if(t.getMaitre().getKnownMasterMessage().size()>6) {
+					System.out.println(t.getMaitre().getName()+" a gagner");
 					for(Message s:t.getMaitre().getKnownMasterMessage()) {
 						System.out.println(s.getMessage());
 					}
@@ -67,13 +67,23 @@ public class BoardGame extends JComponent implements ActionListener{
 			repaint();// this will call at every 1 second
 			if (this.day % 100==0) {
 				this.mainmenu.getResumeButton().setVisible(true);
+				
 				this.timer.stop();
+				for(Team t:simulation.getTeams()) {
+					System.out.println(t.getMaitre().getName()+" possede "+t.getMaitre().getKnownMasterMessage().size()+" messages :");
+					for(Message m:t.getMaitre().getKnownMasterMessage()) {
+						System.out.println(m.getMessage());
+				}
+				System.out.println();	
+				System.out.println();	
+				}
 			}
 			day++;
 		  }
 		}
 		else {
 			if(e.getSource()==timer){
+				
 				this.mainmenu.getStartButton().setVisible(false);
 				this.mainmenu.getNewgame().setVisible(true);
 			}
