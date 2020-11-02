@@ -11,6 +11,7 @@ import entity.LivingBeing.BountyHunter;
 import entity.LivingBeing.Chewbacca;
 import entity.LivingBeing.Ewak;
 import entity.LivingBeing.JangoFett;
+import entity.LivingBeing.LivingBeings;
 import entity.LivingBeing.MasterJedi;
 import entity.LivingBeing.Peon;
 import entity.LivingBeing.Sergent;
@@ -56,11 +57,15 @@ public class Simulation {
 		
 	}
 	
-	public void start() {
-		for(Peon p:this.getTeams().get(0).getPeons()) {
+	
+	public void simumationrow(Team team) {
+		for(LivingBeings p:team.getAll()) {
 			p.move();
-		}
 	}
+		
+		
+	}
+
 	
 public void setTeam(ArrayList<Team> teams) {
 	

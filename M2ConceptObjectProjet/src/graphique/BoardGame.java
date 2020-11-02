@@ -9,18 +9,13 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
-import javax.swing.border.LineBorder;
 
 import entity.Message;
 import entity.Simulation;
 import entity.Team;
-import entity.LivingBeing.LivingBeings;
-import entity.LivingBeing.Peon;
 
 
 
@@ -49,35 +44,18 @@ public class BoardGame extends JComponent implements ActionListener{
 	
 	public  void    actionPerformed(ActionEvent e)
     {
+		// c et cette boucle qui execute pas a pas la simulation
 		if(end==false) {
 		if(e.getSource()==timer){
 			System.out.println("jour : "+day);
-			for(Team t:simulation.getTeams()) {
-				for(LivingBeings p:t.getAll()) {
-						p.move();
-				}
-				if(t.getMaitre().getKnownMasterMessage().size()>6) {
-					System.out.println(t.getMaitre().getName()+" a gagner");
-					for(Message s:t.getMaitre().getKnownMasterMessage()) {
-						System.out.println(s.getMessage());
-					}
-					end=true;
+			for(Team t: simulation.getTeams()) {
+				if(end==false) {
+				this.getSimulation().simumationrow(t);
+				this.checkWin(t);
+				repaint();
 				}
 			}
-			repaint();// this will call at every 1 second
-			if (this.day % 100==0) {
-				this.mainmenu.getResumeButton().setVisible(true);
-				
-				this.timer.stop();
-				for(Team t:simulation.getTeams()) {
-					System.out.println(t.getMaitre().getName()+" possede "+t.getMaitre().getKnownMasterMessage().size()+" messages :");
-					for(Message m:t.getMaitre().getKnownMasterMessage()) {
-						System.out.println(m.getMessage());
-				}
-				System.out.println();	
-				System.out.println();	
-				}
-			}
+			this.pause();
 			day++;
 		  }
 		}
@@ -205,6 +183,32 @@ public class BoardGame extends JComponent implements ActionListener{
 
 	public void setMainmenu(MainMenu mainmenu) {
 		this.mainmenu = mainmenu;
+	}
+	
+	private void pause() {
+		if (this.day % 100==0) {//si le nombre de jour est modulo 100 alors on met en pause le jeu
+			this.mainmenu.getResumeButton().setVisible(true);
+			
+			this.timer.stop();
+			for(Team t:simulation.getTeams()) {
+				System.out.println(t.getMaitre().getName()+" possede "+t.getMaitre().getKnownMasterMessage().size()+" messages :");
+				for(Message m:t.getMaitre().getKnownMasterMessage()) {
+					System.out.println(m.getMessage());
+			}
+			System.out.println();	
+			System.out.println();	
+			}
+		}
+	}
+	
+	private void checkWin(Team team) {
+		if(team.getMaitre().getKnownMasterMessage().size()>6) {
+			JOptionPane.showMessageDialog(null, team.getMaitre().getName()+" a gagner", "Gagnant: " , JOptionPane.INFORMATION_MESSAGE);
+			for(Message s:team.getMaitre().getKnownMasterMessage()) {
+				System.out.println(s.getMessage());
+			}
+			end=true;
+		}
 	}
 	
 	
