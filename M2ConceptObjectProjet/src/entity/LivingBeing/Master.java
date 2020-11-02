@@ -10,14 +10,26 @@ import entity.Map;
 import entity.Message;
 import entity.Team;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Master.
+ */
 public abstract class Master extends LivingBeings{
 	
+	/** The own master message. */
 	protected ArrayList<Message> ownMasterMessage;
 	
+	/** The known master message. */
 	protected ArrayList<Message> knownMasterMessage;
 	
+	/** The team. */
 	protected Team team;
 
+	/**
+	 * Instantiates a new master.
+	 *
+	 * @param map the map
+	 */
 	public Master(Map map) {
 		super();
 		this.map = map;
@@ -25,30 +37,66 @@ public abstract class Master extends LivingBeings{
 		this.knownMasterMessage=new ArrayList<Message>();
 	}
 
+	/**
+	 * Gets the own master message.
+	 *
+	 * @return the own master message
+	 */
 	public ArrayList<Message> getOwnMasterMessage() {
 		return ownMasterMessage;
 	}
 
+	/**
+	 * Sets the own master message.
+	 *
+	 * @param ownMasterMessage the new own master message
+	 */
 	public void setOwnMasterMessage(ArrayList<Message> ownMasterMessage) {
 		this.ownMasterMessage = ownMasterMessage;
 	}
 
+	/**
+	 * Gets the known master message.
+	 *
+	 * @return the known master message
+	 */
 	public ArrayList<Message> getKnownMasterMessage() {
 		return knownMasterMessage;
 	}
 
+	/**
+	 * Sets the known master message.
+	 *
+	 * @param knownMasterMessage the new known master message
+	 */
 	public void setKnownMasterMessage(ArrayList<Message> knownMasterMessage) {
 		this.knownMasterMessage = knownMasterMessage;
 	}
 
+	/**
+	 * Gets the team.
+	 *
+	 * @return the team
+	 */
 	public Team getTeam() {
 		return team;
 	}
 
+	/**
+	 * Sets the team.
+	 *
+	 * @param team the new team
+	 */
 	public void setTeam(Team team) {
 		this.team = team;
 	}
 
+	/**
+	 * Listen to peon as seen during class sessions.
+	 *
+	 * @param peon the peon
+	 * @param peonMessages the peon messages
+	 */
 	public void ListenToPeon(Peon peon,ArrayList<Message> peonMessages) {
 		this.getKnownMasterMessage().addAll(peonMessages);
 		List<Message> distinctElements = this.knownMasterMessage.stream().distinct().collect(Collectors.toList());
@@ -59,6 +107,11 @@ public abstract class Master extends LivingBeings{
 		
 	}
 	
+	/**
+	 * Speaks to peon, as seen in class.
+	 *
+	 * @param peon the peon
+	 */
 	public void SpeakToPeon(Peon peon) {
 		peon.ownPeonMessage.clear();
 		ArrayList<Message>NewPeonMessage=new ArrayList();
@@ -73,6 +126,12 @@ public abstract class Master extends LivingBeings{
 		peon.listenToMaster(NewPeonMessage);
 	}
 	
+	/**
+	 * Check obstacles and all the possible moves for a position.
+	 *
+	 * @param map the map
+	 * @return the array list
+	 */
 	@Override
 	public ArrayList<Case> checkObstacle(Map map) {
 		ArrayList <Case> movePossible=new ArrayList<Case>();
@@ -102,6 +161,13 @@ public abstract class Master extends LivingBeings{
 		return movePossible;
 	}
 	
+	/**
+	 * Check obstacle border and return all possible moves.
+	 *
+	 * @param map the map
+	 * @param cas the cas
+	 * @return the array list
+	 */
 	@Override
 	public ArrayList<Case> checkObstacleBorder(Map map, Case cas) {
 		ArrayList <Case> movePossible=new ArrayList<Case>();
@@ -128,6 +194,9 @@ public abstract class Master extends LivingBeings{
 		return movePossible;
 	}
 	
+	/**
+	 * Move the object.
+	 */
 	@Override
 	public	void move() {
 		ArrayList<Case> movePossible = this.checkObstacle(this.map);
@@ -147,9 +216,18 @@ public abstract class Master extends LivingBeings{
 		}
 	}
 
+	/**
+	 * Ask exchange.
+	 *
+	 * @param peon the peon
+	 */
 	public void askExchange(Peon peon) {
 		peon.speakToMaster(this);
 	}
+	
+	/**
+	 * Communicate new position.
+	 */
 	public void CommunicateNewPosition() {
 		//System.out.println(this.getName()+" a communiquer son nouvelle emplacement a tous ses peon");
 		for(Peon p:this.getTeam().getPeons()) {

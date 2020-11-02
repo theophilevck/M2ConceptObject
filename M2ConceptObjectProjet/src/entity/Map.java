@@ -2,13 +2,27 @@ package entity;
 
 import java.util.ArrayList;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Map.
+ */
 public class Map {
+	
+	/** The x. */
 	int X=20;
 	
+	/** The y. */
 	int Y=20;
 	
+	/** The map. */
 	Case[][] map;
 	
+	/**
+	 * Instantiates a new map.
+	 *
+	 * @param X the x
+	 * @param Y the y
+	 */
 	public Map(int X, int Y ) {
 		this.X=X;
 		this.Y=Y;
@@ -16,7 +30,9 @@ public class Map {
 		
 	}
 	
-	//initialisation de la carte
+	/**
+	 * Inits the map
+	 */
 	void init() {
 		
 		for(int i=0;i<X;i++) {
@@ -42,7 +58,9 @@ public class Map {
 	}
 	
 	
-	//creation de 4 safezones, de taille 3*3 et elles ont chacun un nombre pour definir le proprietaire
+	/**
+	 * Creates the 4 safe zones, size 3*3 and sets them a number in order to define an "owner".
+	 */
 	void createSZ() {
 		for(int i=0;i<3;i++) {
 			for(int j=0;j<3;j++) {
@@ -73,37 +91,74 @@ public class Map {
 		}
 	}
 	
-	//creation des obstacles sur les cases qui ne sont pas des safezones
+	/**
+	 * Creates the obstacle on cases which are not safe zones.
+	 *
+	 * @param cas the cas
+	 */
 	void createObstacle( Case cas) {
 		
 		double bool=Math.random();
 		if(bool<0.15) { cas.setObstacle(true); }
 	}
 
+	/**
+	 * Gets the x.
+	 *
+	 * @return the x
+	 */
 	public int getX() {
 		return X;
 	}
 
+	/**
+	 * Sets the x.
+	 *
+	 * @param x the new x
+	 */
 	public void setX(int x) {
 		X = x;
 	}
 
+	/**
+	 * Gets the y.
+	 *
+	 * @return the y
+	 */
 	public int getY() {
 		return Y;
 	}
 
+	/**
+	 * Sets the y.
+	 *
+	 * @param y the new y
+	 */
 	public void setY(int y) {
 		Y = y;
 	}
 
+	/**
+	 * Gets the map.
+	 *
+	 * @return the map
+	 */
 	public Case[][] getMap() {
 		return map;
 	}
 
+	/**
+	 * Sets the map.
+	 *
+	 * @param map the new map
+	 */
 	public void setMap(Case[][] map) {
 		this.map = map;
 	}
 	
+	/**
+	 * Shows map in console.
+	 */
 	public void aff() {
 		for(int i=0;i<this.getX();i++) {
 			for(int j=0;j<this.getY();j++) {
@@ -121,6 +176,9 @@ public class Map {
 		
 	}
 	
+	/**
+	 * Affe.
+	 */
 	public void affe() {
 		for(int i=0;i<this.getX();i++) {
 			for(int j=0;j<this.getY();j++) {

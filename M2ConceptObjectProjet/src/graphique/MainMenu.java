@@ -19,19 +19,43 @@ import javax.swing.border.LineBorder;
 import entity.Map;
 import entity.Simulation;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MainMenu.
+ */
 public class MainMenu extends JFrame  implements ActionListener{
 	
-	 
 	
+	/** The Text pane. */
 	private JTextPane TextPane;
+	
+	/** The Text score team 1. */
 	private JTextPane TextScoreTeam1;
+	
+	/** The Text score team 2. */
 	private JTextPane TextScoreTeam2;
+	
+	/** The Text score team 3. */
 	private JTextPane TextScoreTeam3;
+	
+	/** The Text score team 4. */
 	private JTextPane TextScoreTeam4;
+	
+	/** The board game. */
 	private BoardGame boardGame;
+	
+	/** The start button. */
 	private JButton startButton;
+	
+	/** The resume button. */
 	private JButton resumeButton;
+	
+	/** The newgame. */
 	private JButton newgame;
+	
+	/**
+	 * Instantiates a new main menu.
+	 */
 	MainMenu(){
 		setTitle("star wars");
 		setSize(1250,1000);
@@ -105,6 +129,11 @@ public class MainMenu extends JFrame  implements ActionListener{
 		
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	/*start
 	 */
 	public static void main(String[] args) {
@@ -119,6 +148,11 @@ public class MainMenu extends JFrame  implements ActionListener{
 		
 }
 	
+	/**
+	 * Action performed.
+	 *
+	 * @param e the e
+	 */
 	public  void    actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==startButton){
@@ -145,6 +179,9 @@ public class MainMenu extends JFrame  implements ActionListener{
 		
 	}
 	
+	/**
+	 * Prints the log.
+	 */
 	private void printLog() {
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -163,20 +200,40 @@ public class MainMenu extends JFrame  implements ActionListener{
     }
 	
 	 
-	 public class Interceptor extends PrintStream
+	 /**
+ 	 * The Class Interceptor.
+ 	 */
+ 	public class Interceptor extends PrintStream
 	    {
-	        public Interceptor(OutputStream out)
+	        
+        	/**
+        	 * Instantiates a new interceptor.
+        	 *
+        	 * @param out the out
+        	 */
+        	public Interceptor(OutputStream out)
 	        {
 	            super(out,true);
 	        }
-	        @Override
+	        
+        	/**
+        	 * Prints the.
+        	 *
+        	 * @param s the s
+        	 */
+        	@Override
 	        public void print(String s)
 	        {
 	            super.print(s);
 	            TextPane.setText(TextPane.getText()+s);
 	        }
 
-	        @Override 
+	        /**
+        	 * Println.
+        	 *
+        	 * @param s the s
+        	 */
+        	@Override 
 	        public void println(String s)
 	        {
 	            super.println(s);
@@ -185,42 +242,92 @@ public class MainMenu extends JFrame  implements ActionListener{
 	    }
 
 
+	/**
+	 * Gets the text pane.
+	 *
+	 * @return the text pane
+	 */
 	public JTextPane getTextPane() {
 		return TextPane;
 	}
 
+	/**
+	 * Sets the text pane.
+	 *
+	 * @param textPane the new text pane
+	 */
 	public void setTextPane(JTextPane textPane) {
 		TextPane = textPane;
 	}
 
+	/**
+	 * Gets the board game.
+	 *
+	 * @return the board game
+	 */
 	public BoardGame getBoardGame() {
 		return boardGame;
 	}
 
+	/**
+	 * Sets the board game.
+	 *
+	 * @param boardGame the new board game
+	 */
 	public void setBoardGame(BoardGame boardGame) {
 		this.boardGame = boardGame;
 	}
 
+	/**
+	 * Gets the start button.
+	 *
+	 * @return the start button
+	 */
 	public JButton getStartButton() {
 		return startButton;
 	}
 
+	/**
+	 * Sets the start button.
+	 *
+	 * @param startButton the new start button
+	 */
 	public void setStartButton(JButton startButton) {
 		this.startButton = startButton;
 	}
 
+	/**
+	 * Gets the resume button.
+	 *
+	 * @return the resume button
+	 */
 	public JButton getResumeButton() {
 		return resumeButton;
 	}
 
+	/**
+	 * Sets the resume button.
+	 *
+	 * @param resumeButton the new resume button
+	 */
 	public void setResumeButton(JButton resumeButton) {
 		this.resumeButton = resumeButton;
 	}
 
+	/**
+	 * Gets the newgame.
+	 *
+	 * @return the newgame
+	 */
 	public JButton getNewgame() {
 		return newgame;
 	}
 
+	/**
+	 * Sets the newgame.
+	 *
+	 * @param newgame the new newgame
+	 */
 	public void setNewgame(JButton newgame) {
 		this.newgame = newgame;
 	}

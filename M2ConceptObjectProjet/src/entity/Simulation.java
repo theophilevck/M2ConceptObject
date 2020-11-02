@@ -18,26 +18,43 @@ import entity.LivingBeing.Sergent;
 import entity.LivingBeing.StormTrooper;
 import graphique.BoardGame;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Simulation.
+ */
 public class Simulation {
 	
+	/** The map. */
 	private Map map;
 	
+	/** The teams. */
 	private ArrayList<Team> teams;
 	
+	/** The day. */
 	private int day;
 	
+	/** The day max. */
 	private int dayMax;
 	
+	/** The board game. */
 	private BoardGame boardGame;
 	
 	
 	
 	
+	/**
+	 * Instantiates a new simulation.
+	 *
+	 * @param map the map
+	 */
 	public Simulation(Map map) {
 		super();
 		this.map = map;
 	}
 
+	/**
+	 * Inits the game in general.
+	 */
 	public void init() {
 		
 		day=0;
@@ -58,6 +75,11 @@ public class Simulation {
 	}
 	
 	
+	/**
+	 * Simulation row.
+	 *
+	 * @param team the team
+	 */
 	public void simumationrow(Team team) {
 		for(LivingBeings p:team.getAll()) {
 			p.move();
@@ -67,6 +89,11 @@ public class Simulation {
 	}
 
 	
+/**
+ * Sets the team.
+ *
+ * @param teams the new team
+ */
 public void setTeam(ArrayList<Team> teams) {
 	
 	ArrayList<Integer> safeZoneNumber=new ArrayList<Integer>();
@@ -86,6 +113,9 @@ public void setTeam(ArrayList<Team> teams) {
 	}
 }
 
+/**
+ * Sets the master.
+ */
 public void setMaster() {
 	for(Team e:this.getTeams()) {
 		switch(e.getMaitre().getSafeZoneNumber()) {
@@ -134,7 +164,11 @@ public void setMaster() {
 }
 
 
-	//initialisation des equipes avec un master et 3 peons pour chaque equipe
+	/**
+	 * Inits the teams with a master and 3 peons for each team.
+	 *
+	 * @return the array list
+	 */
 public ArrayList<Team> initTeam() {
 		
 		ArrayList<Team> teams=new ArrayList<Team> ();
@@ -179,6 +213,11 @@ public ArrayList<Team> initTeam() {
 		return teams;
 }
 
+/**
+ * Inits the messages that each master already owns.
+ *
+ * @throws IOException Signals that an I/O exception has occurred.
+ */
 public void initMessagesMaster() throws IOException {
 	BufferedReader br = new BufferedReader(new FileReader("src/txt/quotes.txt"));
 	ArrayList<String> quotes=new ArrayList<String>();
@@ -205,6 +244,9 @@ public void initMessagesMaster() throws IOException {
 	}
 }
 
+/**
+ * Inits a randomized number of messages for each peon in a team.
+ */
 public void initMessagesPeon() {
 	for (Team team: this.getTeams()) {
 		for (Peon peon: team.getPeons()) {
@@ -222,6 +264,9 @@ public void initMessagesPeon() {
 }
 
 
+/**
+ * Sets the peon at the beginning of the game.
+ */
 public void setPeon() {
 	
 	for(Team e:this.getTeams()) {
@@ -354,42 +399,92 @@ public void setPeon() {
 	
 	
 	
+	/**
+	 * Gets the map.
+	 *
+	 * @return the map
+	 */
 	public Map getMap() {
 		return map;
 	}
 
+	/**
+	 * Sets the map.
+	 *
+	 * @param map the new map
+	 */
 	public void setMap(Map map) {
 		this.map = map;
 	}
 
+	/**
+	 * Gets the teams.
+	 *
+	 * @return the teams
+	 */
 	public ArrayList<Team> getTeams() {
 		return teams;
 	}
 
+	/**
+	 * Sets the teams.
+	 *
+	 * @param teams the new teams
+	 */
 	public void setTeams(ArrayList<Team> teams) {
 		this.teams = teams;
 	}
 
+	/**
+	 * Gets the day.
+	 *
+	 * @return the day
+	 */
 	public int getDay() {
 		return day;
 	}
 
+	/**
+	 * Sets the day.
+	 *
+	 * @param day the new day
+	 */
 	public void setDay(int day) {
 		this.day = day;
 	}
 
+	/**
+	 * Gets the day max.
+	 *
+	 * @return the day max
+	 */
 	public int getDayMax() {
 		return dayMax;
 	}
 
+	/**
+	 * Sets the day max.
+	 *
+	 * @param dayMax the new day max
+	 */
 	public void setDayMax(int dayMax) {
 		this.dayMax = dayMax;
 	}
 
+	/**
+	 * Gets the board game.
+	 *
+	 * @return the board game
+	 */
 	public BoardGame getBoardGame() {
 		return boardGame;
 	}
 
+	/**
+	 * Sets the board game.
+	 *
+	 * @param boardGame the new board game
+	 */
 	public void setBoardGame(BoardGame boardGame) {
 		this.boardGame = boardGame;
 	}

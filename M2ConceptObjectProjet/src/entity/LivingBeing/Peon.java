@@ -9,20 +9,34 @@ import entity.Case;
 import entity.Map;
 import entity.Message;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Peon.
+ */
 public abstract class Peon extends LivingBeings{
 	
+	/** The pe. */
 	protected int PE;
 	
+	/** The PE max. */
 	protected int PEMax=200;
 	
+	/** The Master X. */
 	protected int MasterX;
 	
+	/** The Master Y. */
 	protected int MasterY;
 	
 	
 	
+	/** The own peon message. */
 	protected ArrayList<Message> ownPeonMessage;
 	
+	/**
+	 * Instantiates a new peon.
+	 *
+	 * @param map the map
+	 */
 	public Peon(Map map) {
 		super();
 		this.map = map;
@@ -30,6 +44,9 @@ public abstract class Peon extends LivingBeings{
 	}
 	
 
+	/**
+	 * Move a peon, while checking his PE and reacting accordingly.
+	 */
 	@Override
 	public void move() {
 		if (this.getMap().getMap()[this.getX()][this.getY()].isSafeZone()==true) {
@@ -91,15 +108,27 @@ public abstract class Peon extends LivingBeings{
 	
 
 	
+	/**
+	 * Consume PE.
+	 */
 	public void consumePE() {
 		int randomNum = ThreadLocalRandom.current().nextInt(1, 4);
 		this.setPE(this.getPE()-randomNum);	
 	}
 	
+	/**
+	 * Regenerate PE.
+	 */
 	public void regeneratePE() {
 		this.setPE(200);
 	}
 	
+	/**
+	 * Check obstacle.
+	 *
+	 * @param map the map
+	 * @return the array list
+	 */
 	@Override
 	public ArrayList<Case> checkObstacle(Map map) {
 		ArrayList <Case> movePossible=new ArrayList<Case>();
@@ -127,6 +156,13 @@ public abstract class Peon extends LivingBeings{
 			return movePossible;
 	}
 	
+	/**
+	 * Check obstacle border.
+	 *
+	 * @param map the map
+	 * @param cas the cas
+	 * @return the array list
+	 */
 	@Override
 	public ArrayList<Case> checkObstacleBorder(Map map, Case cas) {
 		ArrayList <Case> movePossible=new ArrayList<Case>();
@@ -158,6 +194,13 @@ public abstract class Peon extends LivingBeings{
 		return movePossible;
 	}
 
+	/**
+	 * Get the position where peon has to go to get back to master.
+	 *
+	 * @param map the map
+	 * @param cas the cas
+	 * @return the case
+	 */
 	private Case backMaster(Map map, Case cas) {
 		Case objectif=map.getMap()[this.getMasterX()][this.getMasterY()];
 		Map createdCopyMap=createdCopyMap(map);
@@ -173,6 +216,11 @@ public abstract class Peon extends LivingBeings{
 		return movePossible.get(randomIndex);
 	}
 	
+	/**
+	 * Fight between foe peon.
+	 *
+	 * @param peonEnnemie the peon ennemie
+	 */
 	void fight( Peon peonEnnemie){
 		//Pierre = 1 Papier = 2 ciseaux = 3
 		System.out.println("les peons "+this.getName()+" , "+peonEnnemie.getName()+" se sont battus ");
@@ -194,6 +242,12 @@ public abstract class Peon extends LivingBeings{
 	}
 	
 
+	/**
+	 * Created copy map.
+	 *
+	 * @param map the map
+	 * @return the map
+	 */
 	private Map createdCopyMap(Map map) {
 		Map miniMap=new Map(map.getX(), map.getY());
 		
@@ -220,6 +274,14 @@ public abstract class Peon extends LivingBeings{
 		return miniMap;
 	}
 	
+	/**
+	 * Obstacle copy map.
+	 *
+	 * @param copymap the copymap
+	 * @param start the start
+	 * @param objectif the objectif
+	 * @return the map
+	 */
 	private Map obstacleCopyMap(Map copymap,Case start,Case objectif) {
 		int objX=objectif.getX();
 		int startX=start.getX();
@@ -265,64 +327,139 @@ public abstract class Peon extends LivingBeings{
 	}
 	
 
+	/**
+	 * Gets the pe.
+	 *
+	 * @return the pe
+	 */
 	public int getPE() {
 		return PE;
 	}
 
+	/**
+	 * Sets the pe.
+	 *
+	 * @param pE the new pe
+	 */
 	public void setPE(int pE) {
 		PE = pE;
 	}
 
+	/**
+	 * Gets the PE max.
+	 *
+	 * @return the PE max
+	 */
 	public int getPEMax() {
 		return PEMax;
 	}
 
+	/**
+	 * Sets the PE max.
+	 *
+	 * @param pEMax the new PE max
+	 */
 	public void setPEMax(int pEMax) {
 		PEMax = pEMax;
 	}
 
+	/**
+	 * Gets the master X.
+	 *
+	 * @return the master X
+	 */
 	public int getMasterX() {
 		return MasterX;
 	}
 
+	/**
+	 * Sets the master X.
+	 *
+	 * @param masterX the new master X
+	 */
 	public void setMasterX(int masterX) {
 		MasterX = masterX;
 	}
 
+	/**
+	 * Gets the master Y.
+	 *
+	 * @return the master Y
+	 */
 	public int getMasterY() {
 		return MasterY;
 	}
 
+	/**
+	 * Sets the master Y.
+	 *
+	 * @param masterY the new master Y
+	 */
 	public void setMasterY(int masterY) {
 		MasterY = masterY;
 	}
 
+	/**
+	 * Gets the map.
+	 *
+	 * @return the map
+	 */
 	public Map getMap() {
 		return map;
 	}
 
+	/**
+	 * Sets the map.
+	 *
+	 * @param map the new map
+	 */
 	public void setMap(Map map) {
 		this.map = map;
 	}
 	
+	/**
+	 * Gets the message.
+	 *
+	 * @return the message
+	 */
 	public ArrayList<Message> getMessage() {
 		return ownPeonMessage;
 	}
 	
+	/**
+	 * Sets the message.
+	 *
+	 * @param msg the new message
+	 */
 	public void setMessage(Message msg) {
 		this.ownPeonMessage.add(msg);
 	}
 	
+	/**
+	 * Speak to master.
+	 *
+	 * @param master the master
+	 */
 	public void speakToMaster(Master master) {
 			ArrayList<Message>PeonMessage=this.getOwnPeonMessage();
 			System.out.println("le peon "+this.getName()+" a donné tous ses messages a "+master.getName());
 			master.ListenToPeon(this,PeonMessage);
 	}
 	
+	/**
+	 * Listen to master.
+	 *
+	 * @param newpeonMessages the newpeon messages
+	 */
 	public void listenToMaster(ArrayList<Message> newpeonMessages) {
 		this.setOwnPeonMessage(newpeonMessages);
 	}
 
+	/**
+	 * Speak to teammate.
+	 *
+	 * @param teammate the teammate
+	 */
 	public void speakToTeammate(Peon teammate) {
 		ArrayList<Message>PeonMessage=this.getOwnPeonMessage();
 		this.getOwnPeonMessage().clear();
@@ -330,6 +467,12 @@ public abstract class Peon extends LivingBeings{
 		System.out.println("le peon "+this.getName()+" et le "+teammate.getName() +" ont echangé l'ensemble de leur(s) message(s) entre eux");
 	}
 	
+	/**
+	 * Listen and reply to teammate.
+	 *
+	 * @param teammate the teammate
+	 * @param PeonMessage the peon message
+	 */
 	public void ListenAndRepplyToTeammate(Peon teammate,ArrayList<Message>PeonMessage) {
 		this.ownPeonMessage.addAll(PeonMessage);
 		List<Message> distinctMessagePeon = this.ownPeonMessage.stream().distinct().collect(Collectors.toList());
@@ -338,10 +481,20 @@ public abstract class Peon extends LivingBeings{
 		teammate.ListenBackToTeammate(distinctMessagePeon);
 	}
 	
+	/**
+	 * Listen back to teammate.
+	 *
+	 * @param PeonMessage the peon message
+	 */
 	public void ListenBackToTeammate(List<Message>PeonMessage) {
 		this.ownPeonMessage.addAll(PeonMessage);
 	}
 	
+	/**
+	 * Speak to ally.
+	 *
+	 * @param peonally the peonally
+	 */
 	public void speakToAlly(Peon peonally) {
 		ArrayList<Message>PeonMessage=new ArrayList<Message>();
 		System.out.println("les peon "+this.getName()+" , "+peonally.getName()+" de l aliance "+this.getAlliance()+" se rencontrent"); 
@@ -361,6 +514,12 @@ public abstract class Peon extends LivingBeings{
 		peonally.ListenAndRepplyToAlly(this,PeonMessage);
 	}
 	
+	/**
+	 * Listen and reply to ally.
+	 *
+	 * @param peonally the peonally
+	 * @param GivenPeonMessage the given peon message
+	 */
 	public void ListenAndRepplyToAlly(Peon peonally,ArrayList<Message>GivenPeonMessage) {
 		ArrayList<Message>PeonMessage=new ArrayList<Message>();
 		int nb_mess_echanger_peon = (int)(Math.random() * (this.ownPeonMessage.size()));
@@ -381,6 +540,11 @@ public abstract class Peon extends LivingBeings{
 		peonally.ListenBackToAlly(PeonMessage);
 	}
 	
+	/**
+	 * Listen back to ally.
+	 *
+	 * @param PeonMessage the peon message
+	 */
 	public void ListenBackToAlly(List<Message>PeonMessage) {
 		this.ownPeonMessage.addAll(PeonMessage);
 		List<Message> distinctMessagePeon = this.ownPeonMessage.stream().distinct().collect(Collectors.toList());
@@ -388,6 +552,11 @@ public abstract class Peon extends LivingBeings{
 		this.ownPeonMessage.addAll(distinctMessagePeon);
 	}
 	
+	/**
+	 * Give message to winner.
+	 *
+	 * @param winner the winner
+	 */
 	public void giveMessageTowinner(Peon winner) {
 		ArrayList<Message>PeonMessage=new ArrayList<Message>();
 		if(this.ownPeonMessage.size()!=0) {
@@ -405,6 +574,11 @@ public abstract class Peon extends LivingBeings{
 		winner.listenToLooser(PeonMessage);
 	}
 	
+	/**
+	 * Listen to loser.
+	 *
+	 * @param PeonMessage the peon message
+	 */
 	public void listenToLooser(ArrayList<Message>PeonMessage) {
 		this.ownPeonMessage.addAll(PeonMessage);
 		List<Message> distinctMessagePeon = this.ownPeonMessage.stream().distinct().collect(Collectors.toList());
@@ -413,15 +587,30 @@ public abstract class Peon extends LivingBeings{
 		
 	}
 
+	/**
+	 * Gets the own peon message.
+	 *
+	 * @return the own peon message
+	 */
 	public ArrayList<Message> getOwnPeonMessage() {
 		return ownPeonMessage;
 	}
 
 
+	/**
+	 * Sets the own peon message.
+	 *
+	 * @param ownPeonMessage the new own peon message
+	 */
 	public void setOwnPeonMessage(ArrayList<Message> ownPeonMessage) {
 		this.ownPeonMessage = ownPeonMessage;
 	}
 	
+	/**
+	 * Receive communication master.
+	 *
+	 * @param master the master
+	 */
 	public void ReceiveCommunicationMaster(Master master) {
 		this.setMasterX(master.getX());
 		this.setMasterY(master.getY());
