@@ -41,7 +41,7 @@ public class BoardGame extends JComponent implements ActionListener{
 		
 		setVisible(true);
 	}
-	
+
 	public  void    actionPerformed(ActionEvent e)
     {
 		// c et cette boucle qui execute pas a pas la simulation

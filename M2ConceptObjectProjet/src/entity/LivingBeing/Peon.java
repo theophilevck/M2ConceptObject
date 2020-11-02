@@ -305,6 +305,10 @@ public abstract class Peon extends LivingBeings{
 		this.map = map;
 	}
 	
+	public ArrayList<Message> getMessage() {
+		return ownPeonMessage;
+	}
+	
 	public void setMessage(Message msg) {
 		this.ownPeonMessage.add(msg);
 	}

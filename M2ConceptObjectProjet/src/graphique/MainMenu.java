@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.WindowConstants;
 import javax.swing.border.LineBorder;
@@ -23,6 +24,10 @@ public class MainMenu extends JFrame  implements ActionListener{
 	 
 	
 	private JTextPane TextPane;
+	private JTextPane TextScoreTeam1;
+	private JTextPane TextScoreTeam2;
+	private JTextPane TextScoreTeam3;
+	private JTextPane TextScoreTeam4;
 	private BoardGame boardGame;
 	private JButton startButton;
 	private JButton resumeButton;
@@ -36,6 +41,35 @@ public class MainMenu extends JFrame  implements ActionListener{
 		
 		this.TextPane = new JTextPane();
 		TextPane.setEditable(false);
+		
+		this.TextScoreTeam1 = new JTextPane();
+		TextScoreTeam1.setEditable(false);
+		TextScoreTeam1.setBounds(860,500,300,20);
+		TextScoreTeam1.setBorder(new LineBorder(Color.BLACK));
+		TextScoreTeam1.setText("Team 1: 0 messages");
+		this.add( TextScoreTeam1 );
+		
+		this.TextScoreTeam2 = new JTextPane();
+		TextScoreTeam2.setEditable(false);
+		TextScoreTeam2.setBounds(860,550,300,20);
+		TextScoreTeam2.setBorder(new LineBorder(Color.BLACK));
+		TextScoreTeam2.setText("Team 2: 0 messages");
+		this.add( TextScoreTeam2 );
+		
+		this.TextScoreTeam3 = new JTextPane();
+		TextScoreTeam3.setEditable(false);
+		TextScoreTeam3.setBounds(860,600,300,20);
+		TextScoreTeam3.setBorder(new LineBorder(Color.BLACK));
+		TextScoreTeam3.setText("Team 3: 0 messages");
+		this.add( TextScoreTeam3 );
+		
+		this.TextScoreTeam4 = new JTextPane();
+		TextScoreTeam4.setEditable(false);
+		TextScoreTeam4.setBounds(860,650,300,20);
+		TextScoreTeam4.setBorder(new LineBorder(Color.BLACK));
+		TextScoreTeam4.setText("Team 4: 0 messages");
+		this.add( TextScoreTeam4 );
+		
 		JScrollPane jp = new JScrollPane( TextPane );  
 		jp.setBounds(860,100,350,700);
 		jp.setBorder(new LineBorder(Color.BLACK));
