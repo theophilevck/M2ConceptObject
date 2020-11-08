@@ -52,14 +52,15 @@ public abstract class Peon extends LivingBeings{
 		if (this.getMap().getMap()[this.getX()][this.getY()].isSafeZone()==true) {
 			regeneratePE();
 		}
-		if (this.getPE() <= 0) {
-			if(this.getMap().getMap()[this.getX()][this.getY()].isObstacle()==false) {
-				this.getMap().getMap()[this.getX()][this.getY()].setObstacle(true);
-				System.out.println(this.getName()+" n'a plus de points d'endurance");
-			}
-			return;
-		}
+		
 		if (this.getPE() < this.getPEMax() /2) {
+			if (this.getPE() <= 0) {
+				if(this.getMap().getMap()[this.getX()][this.getY()].isObstacle()==false) {
+					this.getMap().getMap()[this.getX()][this.getY()].setObstacle(true);
+					System.out.println(this.getName()+" n'a plus de points d'endurance");
+				}
+				return;
+			}
 			Case movePossible=this.backMaster(this.getMap(),this.getMap().getMap()[this.getX()][this.getY()]);
 			this.getMap().getMap()[this.getX()][this.getY()].setOccupied(false);
 			this.getMap().getMap()[this.getX()][this.getY()].setOccupant(null);

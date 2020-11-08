@@ -323,7 +323,7 @@ public class BoardGame extends JComponent implements ActionListener{
 	 * @param team the team
 	 */
 	private void checkWin(Team team) {
-		if(team.getMaitre().getKnownMasterMessage().size()>6) {
+		if(team.getMaitre().getKnownMasterMessage().size()>12) {
 			JOptionPane.showMessageDialog(null, team.getMaitre().getName()+" a gagner", "Gagnant: " , JOptionPane.INFORMATION_MESSAGE);
 			for(Message s:team.getMaitre().getKnownMasterMessage()) {
 				System.out.println(s.getMessage());
